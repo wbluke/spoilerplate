@@ -1,15 +1,18 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.6.3'
 }
 
-apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-
-ext {
-    junitVersion = '5.8.2'
-    lombokVersion = '1.18.24'
-}
 
 group 'spoilerplate'
 version '1.0-SNAPSHOT'
@@ -20,11 +23,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-
     // Spring Boot
     implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     // lombok
     implementation "org.projectlombok:lombok:${lombokVersion}"
