@@ -11,6 +11,10 @@ public class Money {
 
     private final long value;
 
+    public static Money of(Long value) {
+        return new Money(value);
+    }
+
     public static Money add(Money money, Money addition) {
         return new Money(money.value + addition.value);
     }
