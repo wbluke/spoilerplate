@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public class AccountId {
 
-    private final Long id;
+    private final Long value;
 
     public AccountId(Long accountId) {
-        this.id = accountId;
+        this.value = accountId;
     }
 
 }

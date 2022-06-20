@@ -4,16 +4,26 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Getter
 public class Account {
 
-    private AccountId id;
-    private Money baselineBalance;
-    private ActivityWindow activityWindow;
+    @Getter
+    private final AccountId id;
+    private final Money baselineBalance;
+    @Getter
+    private final ActivityWindow activityWindow;
 
-    public Account(Money baselineBalance, ActivityWindow activityWindow) {
+    public Account(AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
+        this.id = accountId;
         this.baselineBalance = baselineBalance;
         this.activityWindow = activityWindow;
+    }
+
+    public static Account withoutId(Money baselineBalance, ActivityWindow activityWindow) {
+        return new Account(null, baselineBalance, activityWindow);
+    }
+
+    public static Account withId(AccountId accountId, Money baselineBalance, ActivityWindow activityWindow) {
+        return new Account(accountId, baselineBalance, activityWindow);
     }
 
     public Money calculateBalance() {
