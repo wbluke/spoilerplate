@@ -39,6 +39,23 @@ public class CafeKiosk {
         beverages.clear();
     }
 
+    public Order createOrder() {
+        LocalTime now = LocalTime.now();
+        if (now.isBefore(SHOP_OPEN_TIME) || now.isAfter(SHOP_CLOSE_TIME)) {
+            throw new IllegalArgumentException("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+        }
+
+        return new Order(beverages, OrderStatus.INIT);
+    }
+
+    public Order createOrder(LocalTime now) {
+        if (now.isBefore(SHOP_OPEN_TIME) || now.isAfter(SHOP_CLOSE_TIME)) {
+            throw new IllegalArgumentException("주문 시간이 아닙니다. 관리자에게 문의하세요.");
+        }
+
+        return new Order(beverages, OrderStatus.INIT);
+    }
+
     public int calculateTotalPrice() {
         int totalPrice = 0;
         for (Beverage beverage : beverages) {
