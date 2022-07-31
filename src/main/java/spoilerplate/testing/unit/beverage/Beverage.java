@@ -1,4 +1,4 @@
-package spoilerplate.testing.unit;
+package spoilerplate.testing.unit.beverage;
 
 public interface Beverage {
 

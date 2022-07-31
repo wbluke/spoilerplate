@@ -1,4 +1,4 @@
-package spoilerplate.testing.unit;
+package spoilerplate.testing.unit.beverage;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Americano implements Beverage {
 
-    private final int price;
+    private final int price = 4000;
 
     @Override
     public String getName() {
