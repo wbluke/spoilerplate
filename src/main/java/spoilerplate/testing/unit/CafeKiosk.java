@@ -68,8 +68,10 @@ public class CafeKiosk {
         return totalPrice;
     }
 
-    public Order createOrder() {
-        return new Order(LocalDate.now(), beverages);
+    public int calculateTotalPrice2() {
+        return beverages.stream()
+            .mapToInt(Beverage::getPrice)
+            .sum();
     }
 
 }
