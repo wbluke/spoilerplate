@@ -6,7 +6,7 @@ import spoilerplate.testing.unit.beverage.Latte;
 import spoilerplate.testing.unit.order.Order;
 import spoilerplate.testing.unit.order.OrderStatus;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -107,12 +107,15 @@ class CafeKioskTest {
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
 
-        Order order = cafeKiosk.createOrder(LocalTime.of(10, 0));
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(2022, 8, 2, 10, 0));
 
-        assertThat(order.getBeverages()).hasSize(2);
         assertThat(cafeKiosk.getBeverages().get(0)).isEqualTo(americano);
         assertThat(cafeKiosk.getBeverages().get(1)).isEqualTo(latte);
+
         assertThat(order.getStatus()).isEqualByComparingTo(OrderStatus.INIT);
+        assertThat(order.getBeverages()).hasSize(2);
+        assertThat(order.getBeverages().get(0)).isEqualTo(americano);
+        assertThat(order.getBeverages().get(1)).isEqualTo(latte);
     }
 
     @Test
@@ -124,7 +127,7 @@ class CafeKioskTest {
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
 
-        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalTime.of(9, 59)))
+        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2022, 8, 2, 9, 59)))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
     }
