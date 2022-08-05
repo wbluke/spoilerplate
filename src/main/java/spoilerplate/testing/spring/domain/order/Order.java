@@ -35,7 +35,7 @@ public class Order {
         return new Order(OrderStatus.INIT, products);
     }
 
-    public int calculateTotalPrice() {
+    public int calculateTotalPrice() { // field에 값을 관리하는 방법도 있음. Trade-off
         return orderProducts.stream()
             .mapToInt(OrderProduct::getPrice)
             .sum();
