@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import spoilerplate.testing.spring.domain.order.Order;
 import spoilerplate.testing.spring.domain.product.Product;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -16,6 +13,7 @@ import javax.persistence.ManyToOne;
 public class OrderProduct {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -3,6 +3,7 @@ package spoilerplate.testing.spring.api.service.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import spoilerplate.testing.spring.api.repository.ProductApiRepository;
 import spoilerplate.testing.spring.api.service.product.response.ProductResponse;
 import spoilerplate.testing.spring.domain.product.Product;
 import spoilerplate.testing.spring.domain.product.ProductRepository;
@@ -17,9 +18,10 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductApiRepository productApiRepository;
 
     public List<ProductResponse> getSellingProducts() {
-        List<Product> sellingProducts = productRepository.findProductsBySellingStatusIn(ProductSellingStatus.getStatusesThatCanBeSold());
+        List<Product> sellingProducts = productApiRepository.findProductsBySellingStatusIn(ProductSellingStatus.getStatusesThatCanBeSold());
 
         return sellingProducts.stream()
             .map(ProductResponse::of)

@@ -2,6 +2,7 @@ package spoilerplate.testing.spring.domain.product;
 
 
 import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import spoilerplate.testing.spring.domain.orderproduct.OrderProduct;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String productNumber;
@@ -33,8 +35,10 @@ public class Product {
     private List<OrderProduct> orderProducts;
 
     @Builder
-    private Product(String productNumber, String name, int price) {
+    private Product(String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
         this.productNumber = productNumber;
+        this.type = type;
+        this.sellingStatus = sellingStatus;
         this.name = name;
         this.price = price;
     }

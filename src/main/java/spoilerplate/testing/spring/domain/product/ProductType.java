@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ProductType {
 
-    BEVERAGE("제조 음료"),
+    HANDMADE("제조 음료"),
     BOTTLE("병 음료"),
     BAKERY("베이커리");
 
