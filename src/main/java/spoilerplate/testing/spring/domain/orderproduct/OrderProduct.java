@@ -19,16 +19,12 @@ public class OrderProduct {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-    @ManyToOne
-    private Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product; // id mapping 도 가능. Trade-off
 
     public OrderProduct(Order order, Product product) {
         this.order = order;
         this.product = product;
-    }
-
-    public int getPrice() {
-        return product.getPrice();
     }
 
 }

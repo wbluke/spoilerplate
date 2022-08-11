@@ -2,13 +2,10 @@ package spoilerplate.testing.spring.domain.product;
 
 
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import spoilerplate.testing.spring.domain.orderproduct.OrderProduct;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -30,9 +27,6 @@ public class Product {
     private String name;
 
     private int price;
-
-    @OneToMany(mappedBy = "product")
-    private List<OrderProduct> orderProducts;
 
     @Builder
     private Product(String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {

@@ -6,6 +6,8 @@ import spoilerplate.testing.spring.domain.orderproduct.OrderProduct;
 import spoilerplate.testing.spring.domain.product.Product;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,23 +24,28 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderProduct> orderProducts;
+    private int totalPrice;
+    private LocalDateTime createdDateTime;
 
-    public Order(OrderStatus orderStatus, List<Product> products) {
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    public Order(OrderStatus orderStatus, List<Product> products, LocalDateTime createdDateTime) {
         this.orderStatus = orderStatus;
         this.orderProducts = products.stream()
             .map(product -> new OrderProduct(this, product))
             .collect(Collectors.toList());
+        this.totalPrice = calculateTotalPrice(products);
+        this.createdDateTime = createdDateTime;
     }
 
-    public static Order createInitialOrder(List<Product> products) {
-        return new Order(OrderStatus.INIT, products);
+    public static Order createInitialOrder(List<Product> products, LocalDateTime createdDateTime) {
+        return new Order(OrderStatus.INIT, products, createdDateTime);
     }
 
-    public int calculateTotalPrice() { // field에 값을 관리하는 방법도 있음. Trade-off
-        return orderProducts.stream()
-            .mapToInt(OrderProduct::getPrice)
+    private int calculateTotalPrice(List<Product> products) {
+        return products.stream()
+            .mapToInt(Product::getPrice)
             .sum();
     }
 
