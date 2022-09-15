@@ -36,10 +36,14 @@ public class Stock {
     }
 
     public void deductQuantity(Long quantity) {
-        if (this.quantity < quantity) {
+        if (isQuantityLessThan(quantity)) {
             throw new IllegalArgumentException("차감할 재고 수량이 없습니다.");
         }
         this.quantity -= quantity;
+    }
+
+    public boolean isQuantityLessThan(Long quantity) {
+        return this.quantity < quantity;
     }
 
 }

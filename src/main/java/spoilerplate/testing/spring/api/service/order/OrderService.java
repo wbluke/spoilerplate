@@ -34,10 +34,7 @@ public class OrderService {
 
         deductStockQuantities(productNumbers, productCandidatesMap);
 
-        List<Product> products = productNumbers.stream()
-            .map(productCandidatesMap::get)
-            .collect(Collectors.toList());
-        Order order = Order.createInitialOrder(products, orderCreatedDateTime);
+        Order order = createOrder(productNumbers, productCandidatesMap, orderCreatedDateTime);
         Order savedOrder = orderRepository.save(order);
 
         return OrderResponse.of(savedOrder);
@@ -51,7 +48,7 @@ public class OrderService {
 
     private void deductStockQuantities(List<String> productNumbers, Map<String, Product> productCandidatesMap) {
         List<String> stockProductNumbers = productCandidatesMap.entrySet().stream()
-            .filter(entry -> ProductType.getStockTypes().contains(entry.getValue().getType()))
+            .filter(entry -> ProductType.containsStockType(entry.getValue().getType()))
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
 
@@ -62,11 +59,18 @@ public class OrderService {
         for (String stockProductNumber : stockProductNumbers) {
             Stock stock = stockMap.get(stockProductNumber);
             Long quantity = productNumberCountingMap.get(stockProductNumber);
-            if (stock.getQuantity() < quantity) {
+            if (stock.isQuantityLessThan(quantity)) {
                 throw new IllegalArgumentException("재고가 부족한 상품이 있습니다.");
             }
             stock.deductQuantity(quantity);
         }
+    }
+
+    private static Order createOrder(List<String> productNumbers, Map<String, Product> productCandidatesMap, LocalDateTime orderCreatedDateTime) {
+        List<Product> products = productNumbers.stream()
+            .map(productCandidatesMap::get)
+            .collect(Collectors.toList());
+        return Order.createInitialOrder(products, orderCreatedDateTime);
     }
 
     private Map<String, Stock> createStockMap(List<String> stockProductNumbers) {

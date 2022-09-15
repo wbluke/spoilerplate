@@ -19,4 +19,8 @@ public enum ProductType {
         return Set.of(BOTTLE, BAKERY);
     }
 
+    public static boolean containsStockType(ProductType productType) {
+        return getStockTypes().contains(productType);
+    }
+
 }
