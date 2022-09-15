@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -42,10 +41,10 @@ class ProductRepositoryTest {
             .name("팥빙수")
             .price(3500)
             .build();
-        productRepository.saveAll(Arrays.asList(product1, product2, product3));
+        productRepository.saveAll(List.of(product1, product2, product3));
 
         // when
-        List<Product> products = productRepository.findProductsBySellingStatusIn(Arrays.asList(SELLING, HOLD));
+        List<Product> products = productRepository.findProductsBySellingStatusIn(List.of(SELLING, HOLD));
 
         // then
         assertThat(products).hasSize(2)
@@ -81,7 +80,7 @@ class ProductRepositoryTest {
             .name("팥빙수")
             .price(3500)
             .build();
-        productRepository.saveAll(Arrays.asList(product1, product2, product3));
+        productRepository.saveAll(List.of(product1, product2, product3));
 
         // when
         List<Product> products = productRepository.findProductsByProductNumberIn(Set.of(targetProductNumber1, targetProductNumber2));

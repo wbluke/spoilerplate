@@ -2,12 +2,16 @@ package spoilerplate.testing.spring.api.service.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spoilerplate.testing.spring.api.controller.order.request.OrderRequest;
 import spoilerplate.testing.spring.api.service.order.response.OrderResponse;
 import spoilerplate.testing.spring.domain.order.Order;
 import spoilerplate.testing.spring.domain.order.OrderRepository;
 import spoilerplate.testing.spring.domain.product.Product;
 import spoilerplate.testing.spring.domain.product.ProductRepository;
+import spoilerplate.testing.spring.domain.product.ProductType;
+import spoilerplate.testing.spring.domain.stock.Stock;
+import spoilerplate.testing.spring.domain.stock.StockRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -15,31 +19,60 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final StockRepository stockRepository;
 
     public OrderResponse createOrder(OrderRequest orderRequest, LocalDateTime orderCreatedDateTime) {
         List<String> productNumbers = orderRequest.getProductNumbers();
-        List<Product> products = findProductsBy(productNumbers);
+        Map<String, Product> productCandidatesMap = createProductCandidatesMap(productNumbers);
 
+        deductStockQuantities(productNumbers, productCandidatesMap);
+
+        List<Product> products = productNumbers.stream()
+            .map(productCandidatesMap::get)
+            .collect(Collectors.toList());
         Order order = Order.createInitialOrder(products, orderCreatedDateTime);
         Order savedOrder = orderRepository.save(order);
 
         return OrderResponse.of(savedOrder);
     }
 
-    private List<Product> findProductsBy(List<String> productNumbers) {
+    private Map<String, Product> createProductCandidatesMap(List<String> productNumbers) {
         List<Product> productCandidates = productRepository.findProductsByProductNumberIn(new HashSet<>(productNumbers));
-        Map<String, Product> productMap = productCandidates.stream()
+        return productCandidates.stream()
             .collect(Collectors.toMap(Product::getProductNumber, p -> p));
+    }
 
-        return productNumbers.stream()
-            .map(productMap::get)
+    private void deductStockQuantities(List<String> productNumbers, Map<String, Product> productCandidatesMap) {
+        List<String> stockProductNumbers = productCandidatesMap.entrySet().stream()
+            .filter(entry -> ProductType.getStockTypes().contains(entry.getValue().getType()))
+            .map(Map.Entry::getKey)
             .collect(Collectors.toList());
+
+        Map<String, Stock> stockMap = createStockMap(stockProductNumbers);
+        Map<String, Long> productNumberCountingMap = productNumbers.stream()
+            .collect(Collectors.groupingBy(productNumber -> productNumber, Collectors.counting()));
+
+        for (String stockProductNumber : stockProductNumbers) {
+            Stock stock = stockMap.get(stockProductNumber);
+            Long quantity = productNumberCountingMap.get(stockProductNumber);
+            if (stock.getQuantity() < quantity) {
+                throw new IllegalArgumentException("재고가 부족한 상품이 있습니다.");
+            }
+            stock.deductQuantity(quantity);
+        }
+    }
+
+    private Map<String, Stock> createStockMap(List<String> stockProductNumbers) {
+        List<Stock> stocks = stockRepository.findStocksByProductNumberIn(stockProductNumbers);
+        return stocks.stream()
+            .collect(Collectors.toMap(Stock::getProductNumber, s -> s));
     }
 
 }

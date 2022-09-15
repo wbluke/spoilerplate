@@ -3,6 +3,8 @@ package spoilerplate.testing.spring.domain.product;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Set;
+
 @Getter
 @RequiredArgsConstructor
 public enum ProductType {
@@ -12,5 +14,9 @@ public enum ProductType {
     BAKERY("베이커리");
 
     private final String text;
+
+    public static Set<ProductType> getStockTypes() {
+        return Set.of(BOTTLE, BAKERY);
+    }
 
 }

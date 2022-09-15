@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import spoilerplate.testing.spring.domain.product.Product;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +27,7 @@ class OrderTest {
             .build();
 
         // when
-        Order order = Order.createInitialOrder(Arrays.asList(product1, product2), LocalDateTime.now());
+        Order order = Order.createInitialOrder(List.of(product1, product2), LocalDateTime.now());
 
         // then
         assertThat(order.getOrderStatus()).isEqualByComparingTo(OrderStatus.INIT);

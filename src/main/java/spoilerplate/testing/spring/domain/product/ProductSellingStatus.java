@@ -3,7 +3,6 @@ package spoilerplate.testing.spring.domain.product;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -17,7 +16,7 @@ public enum ProductSellingStatus {
     private final String text;
 
     public static List<ProductSellingStatus> getStatusesThatCanBeSold() {
-        return Arrays.asList(SELLING, HOLD);
+        return List.of(SELLING, HOLD);
     }
 
 }
