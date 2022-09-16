@@ -91,4 +91,54 @@ class ProductRepositoryTest {
             .containsExactlyInAnyOrder(targetProductNumber1, targetProductNumber2);
     }
 
+    @DisplayName("상품 이름 키워드와 타입으로 검색한다.")
+    @Test
+    void findProductsByNameContainingAndTypeIn() {
+        // given
+        Product product1 = Product.builder()
+            .productNumber("1")
+            .type(ProductType.HANDMADE)
+            .sellingStatus(SELLING)
+            .name("아메리카노")
+            .price(4000)
+            .build();
+        Product product2 = Product.builder()
+            .productNumber("2")
+            .type(ProductType.HANDMADE)
+            .sellingStatus(SELLING)
+            .name("카페라떼")
+            .price(4500)
+            .build();
+        Product product3 = Product.builder()
+            .productNumber("3")
+            .type(ProductType.BOTTLE)
+            .sellingStatus(SELLING)
+            .name("병음료카")
+            .price(3500)
+            .build();
+        Product product4 = Product.builder()
+            .productNumber("4")
+            .type(ProductType.BAKERY)
+            .sellingStatus(SELLING)
+            .name("카빵")
+            .price(3000)
+            .build();
+        Product product5 = Product.builder()
+            .productNumber("5")
+            .type(ProductType.BAKERY)
+            .sellingStatus(SELLING)
+            .name("크림빵")
+            .price(3000)
+            .build();
+        productRepository.saveAll(List.of(product1, product2, product3, product4, product5));
+
+        // when
+        List<Product> products = productRepository.findProductsByNameContainingAndTypeIn("카", List.of(ProductType.HANDMADE, ProductType.BOTTLE));
+
+        // then
+        assertThat(products).hasSize(3)
+            .extracting("productNumber")
+            .containsExactlyInAnyOrder("1", "2", "3");
+    }
+
 }
