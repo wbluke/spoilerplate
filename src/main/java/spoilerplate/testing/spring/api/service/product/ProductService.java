@@ -3,7 +3,7 @@ package spoilerplate.testing.spring.api.service.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spoilerplate.testing.spring.api.controller.product.request.ProductSearchRequest;
+import spoilerplate.testing.spring.api.service.product.request.ProductSearchServiceRequest;
 import spoilerplate.testing.spring.api.service.product.response.ProductResponse;
 import spoilerplate.testing.spring.domain.product.Product;
 import spoilerplate.testing.spring.domain.product.ProductRepository;
@@ -27,7 +27,7 @@ public class ProductService {
             .collect(Collectors.toList());
     }
 
-    public List<ProductResponse> search(ProductSearchRequest request) {
+    public List<ProductResponse> search(ProductSearchServiceRequest request) {
         List<Product> products = productRepository.findProductsByNameContainingAndTypeIn(request.getKeyword(), request.getProductTypes());
 
         return products.stream()

@@ -3,6 +3,7 @@ package spoilerplate.testing.spring.api.controller.order.request;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import spoilerplate.testing.spring.api.service.order.request.OrderServiceRequest;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -17,6 +18,12 @@ public class OrderRequest {
     @Builder
     private OrderRequest(List<String> productNumbers) {
         this.productNumbers = productNumbers;
+    }
+
+    public OrderServiceRequest toServiceRequest() {
+        return OrderServiceRequest.builder()
+            .productNumbers(productNumbers)
+            .build();
     }
 
 }

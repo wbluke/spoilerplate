@@ -24,7 +24,7 @@ public class ProductController {
 
     @GetMapping("/api/v1/products/search")
     public ApiResponse<List<ProductResponse>> search(@Valid ProductSearchRequest request) {
-        return ApiResponse.ok(productService.search(request));
+        return ApiResponse.ok(productService.search(request.toServiceRequest()));
     }
 
 }

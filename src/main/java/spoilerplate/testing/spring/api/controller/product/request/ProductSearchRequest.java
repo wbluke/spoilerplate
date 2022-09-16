@@ -2,6 +2,7 @@ package spoilerplate.testing.spring.api.controller.product.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import spoilerplate.testing.spring.api.service.product.request.ProductSearchServiceRequest;
 import spoilerplate.testing.spring.domain.product.ProductType;
 
 import javax.validation.constraints.NotBlank;
@@ -19,6 +20,13 @@ public class ProductSearchRequest {
 
     @NotBlank(message = "상품 타입은 필수입니다.")
     private String productType; // ALL
+
+    public ProductSearchServiceRequest toServiceRequest() {
+        return ProductSearchServiceRequest.builder()
+            .keyword(keyword)
+            .productTypes(getProductTypes())
+            .build();
+    }
 
     public List<ProductType> getProductTypes() {
         if (ALL_CODE.equals(productType)) {

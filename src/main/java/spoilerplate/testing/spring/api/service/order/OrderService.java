@@ -3,7 +3,7 @@ package spoilerplate.testing.spring.api.service.order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spoilerplate.testing.spring.api.controller.order.request.OrderRequest;
+import spoilerplate.testing.spring.api.service.order.request.OrderServiceRequest;
 import spoilerplate.testing.spring.api.service.order.response.OrderResponse;
 import spoilerplate.testing.spring.domain.order.Order;
 import spoilerplate.testing.spring.domain.order.OrderRepository;
@@ -28,7 +28,7 @@ public class OrderService {
     private final ProductRepository productRepository;
     private final StockRepository stockRepository;
 
-    public OrderResponse createOrder(OrderRequest orderRequest, LocalDateTime orderCreatedDateTime) {
+    public OrderResponse createOrder(OrderServiceRequest orderRequest, LocalDateTime orderCreatedDateTime) {
         List<String> productNumbers = orderRequest.getProductNumbers();
         Map<String, Product> productCandidatesMap = createProductCandidatesMap(productNumbers);
 
