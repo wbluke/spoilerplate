@@ -141,4 +141,40 @@ class ProductRepositoryTest {
             .containsExactlyInAnyOrder("1", "2", "3");
     }
 
+    @DisplayName("가장 최근에 등록된 상품을 조회한다.")
+    @Test
+    void findFirst1ByOrderByIdDesc() {
+        // given
+        Product product1 = Product.builder()
+            .productNumber("1")
+            .type(ProductType.HANDMADE)
+            .sellingStatus(SELLING)
+            .name("아메리카노")
+            .price(4000)
+            .build();
+        Product product2 = Product.builder()
+            .productNumber("2")
+            .type(ProductType.HANDMADE)
+            .sellingStatus(SELLING)
+            .name("카페라떼")
+            .price(4500)
+            .build();
+        Product product3 = Product.builder()
+            .productNumber("3")
+            .type(ProductType.BOTTLE)
+            .sellingStatus(SELLING)
+            .name("병음료카")
+            .price(3500)
+            .build();
+        productRepository.save(product1);
+        productRepository.save(product2);
+        productRepository.save(product3);
+
+        // when
+        Product product = productRepository.findFirst1ByOrderByIdDesc();
+
+        // then
+        assertThat(product.getProductNumber()).isEqualTo("3");
+    }
+
 }

@@ -20,4 +20,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findProductsByNameContainingAndTypeIn(String name, List<ProductType> types);
 
+    Product findFirst1ByOrderByIdDesc();
+
 }
