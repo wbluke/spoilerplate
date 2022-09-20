@@ -44,7 +44,7 @@ class OrderControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.code").value("OK"))
+            .andExpect(jsonPath("$.code").value("CREATED"))
             .andExpect(jsonPath("$.message").value("요청이 성공하였습니다."));
     }
 

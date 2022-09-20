@@ -48,8 +48,11 @@ public class ProductService {
 
     private String createNextProductNumber() {
         Product latestRegisteredProduct = productRepository.findFirst1ByOrderByIdDesc();
-        String productNumber = latestRegisteredProduct.getProductNumber();
+        if (latestRegisteredProduct == null) {
+            return "001";
+        }
 
+        String productNumber = latestRegisteredProduct.getProductNumber();
         int productNumberInt = Integer.parseInt(productNumber);
         int nextProductNumberInt = productNumberInt + 1;
 
