@@ -1,6 +1,7 @@
 package spoilerplate.testing.spring.domain.order;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import spoilerplate.testing.spring.domain.orderproduct.OrderProduct;
@@ -31,6 +32,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
+    @Builder
     public Order(OrderStatus orderStatus, List<Product> products, LocalDateTime createdDateTime) {
         this.orderStatus = orderStatus;
         this.orderProducts = products.stream()
