@@ -23,7 +23,10 @@ public class OrderStatisticService {
     private final MailSendClient mailSendClient;
 
     public void sendEmailAboutTotalSalesAmount(LocalDate orderDate, String email) {
-        List<Order> orders = orderRepository.findAllByCreatedDateTimeBetween(orderDate.atStartOfDay(), orderDate.atTime(23, 59, 59)); // TODO: 2022/09/23 범위 기반으로 다시
+        // TODO: 2022/09/23 범위 기반으로 다시
+        List<Order> orders = orderRepository.findAllByRegisteredDateTimeBetween(
+                orderDate.atStartOfDay(), orderDate.atTime(23, 59, 59)
+        );
         int totalSalesAmount = orders.stream()
             .mapToInt(Order::getTotalPrice)
             .sum();

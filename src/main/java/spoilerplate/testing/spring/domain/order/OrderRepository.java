@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    List<Order> findAllByCreatedDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    List<Order> findAllByRegisteredDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
 
 }

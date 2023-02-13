@@ -3,6 +3,7 @@ package spoilerplate.testing.spring.domain.orderproduct;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import spoilerplate.testing.spring.domain.BaseEntity;
 import spoilerplate.testing.spring.domain.order.Order;
 import spoilerplate.testing.spring.domain.product.Product;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class OrderProduct {
+public class OrderProduct extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -29,7 +29,7 @@ public class OrderResponse {
         return OrderResponse.builder()
             .id(order.getId())
             .totalPrice(order.getTotalPrice())
-            .createdDateTime(order.getCreatedDateTime())
+            .createdDateTime(order.getRegisteredDateTime())
             .products(
                 order.getOrderProducts().stream()
                     .map(orderProduct -> ProductResponse.of(orderProduct.getProduct()))

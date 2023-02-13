@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailSendClient {
 
-    private final JavaMailSender mailSender;
+//    private final JavaMailSender mailSender;
 
     public boolean send(String fromEmail, String toEmail, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -21,7 +21,7 @@ public class MailSendClient {
         message.setText(content);
 
         try {
-            mailSender.send(message);
+//            mailSender.send(message);
             return true;
         } catch (Exception e) {
             log.error("메일 전송 실패 : {}", e.getMessage());

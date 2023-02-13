@@ -78,11 +78,11 @@ class OrderStatisticServiceTest {
             );
     }
 
-    private Order createOrder(List<Product> product11, LocalDateTime createdDateTime) {
+    private Order createOrder(List<Product> product11, LocalDateTime registeredDateTime) {
         return Order.builder()
             .orderStatus(OrderStatus.INIT)
             .products(product11)
-            .createdDateTime(createdDateTime)
+            .registeredDateTime(registeredDateTime)
             .build();
     }
 
