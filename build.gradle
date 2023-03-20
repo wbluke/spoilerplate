@@ -31,6 +31,9 @@ dependencies {
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
+    // Utils
+    implementation("com.google.guava:guava:31.1-jre")
+
     // lombok
     implementation "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
