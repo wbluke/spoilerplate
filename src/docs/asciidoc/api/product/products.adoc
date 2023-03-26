@@ -1,0 +1,9 @@
+[[product-selling]]
+=== 판매 가능한 상품 조회
+
+==== HTTP Request
+include::{snippets}/product-selling/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/product-selling/http-response.adoc[]
+include::{snippets}/product-selling/response-fields.adoc[]

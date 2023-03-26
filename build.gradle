@@ -9,6 +9,7 @@ buildscript {
 
 plugins {
     id 'java'
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 apply plugin: 'org.springframework.boot'
@@ -17,6 +18,10 @@ apply plugin: 'io.spring.dependency-management'
 group 'spoilerplate'
 version '1.0-SNAPSHOT'
 sourceCompatibility = '11'
+
+configurations {
+    asciidoctorExt
+}
 
 repositories {
     mavenCentral()
@@ -42,8 +47,39 @@ dependencies {
 
     // h2
     runtimeOnly 'com.h2database:h2'
+
+    // RestDocs
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
 test {
     useJUnitPlatform()
+}
+
+ext { // 전역 변수
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+
+    sources { // 특정 파일만 html로 만든다.
+        include("**/index.adoc")
+    }
+    baseDirFollowsSourceFile() // 다른 adoc 파일을 include 할 때 경로를 baseDir로 맞춘다.
+
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
 }
