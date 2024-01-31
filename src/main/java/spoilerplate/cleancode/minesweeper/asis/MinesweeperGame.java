@@ -76,9 +76,14 @@ public class MinesweeperGame {
                 System.out.println();
             }
 
+            if (gameStatus == 1) {
+                System.out.println("지뢰를 모두 찾았습니다. GAME CLEAR!");
+                break;
+            }
+
             if (gameStatus == -1) {
                 System.out.println("지뢰를 밟았습니다. GAME OVER!");
-//                break;
+                break;
             }
 
             System.out.println();
@@ -139,6 +144,7 @@ public class MinesweeperGame {
             if (mines[row][col]) {
                 board[row][col] = "☼";
                 gameStatus = -1;
+                continue;
             } else {
                 open(row, col);
             }
@@ -152,9 +158,7 @@ public class MinesweeperGame {
                 }
             }
             if (isAllOpened) {
-                System.out.println("모든 지뢰를 찾았습니다. GAME CLEAR!");
                 gameStatus = 1;
-                break;
             }
 
         }
