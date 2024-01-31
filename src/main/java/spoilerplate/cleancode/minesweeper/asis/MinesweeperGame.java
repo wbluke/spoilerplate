@@ -84,7 +84,9 @@ public class MinesweeperGame {
             System.out.println();
             System.out.println("오픈할 좌표를 입력하세요. (예: a1)");
             String input = scanner.nextLine();
-            System.out.println(input + "을(를) 선택하셨습니다.");
+            System.out.println(input + " 셀을 선택하셨습니다.");
+            System.out.println(input + " 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
+            String input2 = scanner.nextLine();
 
             char c = input.charAt(0);
             char r = input.charAt(1);
@@ -127,6 +129,12 @@ public class MinesweeperGame {
             }
 
             int row = Character.getNumericValue(r) - 1;
+
+            if (input2.equals("2")) {
+                board[row][col] = "⚑";
+                System.out.println(input + " 셀에 깃발을 꽂았습니다.");
+                continue;
+            }
 
             if (mines[row][col]) {
                 board[row][col] = "☼";
