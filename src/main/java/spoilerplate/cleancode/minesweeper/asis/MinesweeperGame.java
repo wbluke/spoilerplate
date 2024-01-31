@@ -132,16 +132,7 @@ public class MinesweeperGame {
                 board[row][col] = "☼";
                 gameStatus = -1;
             } else {
-                if (mineCounts[row][col] != 0) {
-                    board[row][col] = String.valueOf(mineCounts[row][col]);
-                } else {
-                    board[row][col] = "■";
-
-                    // 재귀
-
-
-                }
-
+                open(row, col);
             }
 
             boolean isAllOpened = true;
@@ -160,6 +151,35 @@ public class MinesweeperGame {
 
         }
 
+    }
+
+    private static void open(int row, int col) {
+        if (row < 0 || row >= 8 || col < 0 || col >= 10) {
+            return;
+        }
+        if (board[row][col] != "□") {
+            return;
+        }
+        if (mines[row][col]) {
+            return;
+        }
+
+        if (mineCounts[row][col] != 0) {
+            board[row][col] = String.valueOf(mineCounts[row][col]);
+            return;
+        } else {
+            board[row][col] = "■";
+        }
+
+
+        open(row - 1, col - 1);
+        open(row - 1, col);
+        open(row - 1, col + 1);
+        open(row, col - 1);
+        open(row, col + 1);
+        open(row + 1, col - 1);
+        open(row + 1, col);
+        open(row + 1, col + 1);
     }
 
 }
