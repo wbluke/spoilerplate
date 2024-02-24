@@ -7,7 +7,7 @@ public class MinesweeperGame {
 
     private static String[][] board = new String[8][10];
     private static Integer[][] mineCounts = new Integer[8][10];
-    private static boolean[][] mines = new boolean[8][10];
+    private static boolean[][] landMines = new boolean[8][10];
     private static int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
 
     public static void main(String[] args) {
@@ -23,37 +23,37 @@ public class MinesweeperGame {
         for (int i = 0; i < 10; i++) {
             int width = new Random().nextInt(10);
             int height = new Random().nextInt(8);
-            mines[height][width] = true;
+            landMines[height][width] = true;
         }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 10; j++) {
                 int count = 0;
-                if (mines[i][j]) {
+                if (landMines[i][j]) {
                     mineCounts[i][j] = -1;
                     continue;
                 }
-                if (i - 1 >= 0 && j - 1 >= 0 && mines[i - 1][j - 1]) {
+                if (i - 1 >= 0 && j - 1 >= 0 && landMines[i - 1][j - 1]) {
                     count++;
                 }
-                if (i - 1 >= 0 && mines[i - 1][j]) {
+                if (i - 1 >= 0 && landMines[i - 1][j]) {
                     count++;
                 }
-                if (i - 1 >= 0 && j + 1 < 10 && mines[i - 1][j + 1]) {
+                if (i - 1 >= 0 && j + 1 < 10 && landMines[i - 1][j + 1]) {
                     count++;
                 }
-                if (j - 1 >= 0 && mines[i][j - 1]) {
+                if (j - 1 >= 0 && landMines[i][j - 1]) {
                     count++;
                 }
-                if (j + 1 < 10 && mines[i][j + 1]) {
+                if (j + 1 < 10 && landMines[i][j + 1]) {
                     count++;
                 }
-                if (i + 1 < 8 && j - 1 >= 0 && mines[i + 1][j - 1]) {
+                if (i + 1 < 8 && j - 1 >= 0 && landMines[i + 1][j - 1]) {
                     count++;
                 }
-                if (i + 1 < 8 && mines[i + 1][j]) {
+                if (i + 1 < 8 && landMines[i + 1][j]) {
                     count++;
                 }
-                if (i + 1 < 8 && j + 1 < 10 && mines[i + 1][j + 1]) {
+                if (i + 1 < 8 && j + 1 < 10 && landMines[i + 1][j + 1]) {
                     count++;
                 }
                 mineCounts[i][j] = count;
@@ -137,7 +137,7 @@ public class MinesweeperGame {
                 }
                 continue;
             }
-            if (mines[row][col]) {
+            if (landMines[row][col]) {
                 board[row][col] = "☼";
                 gameStatus = -1;
                 continue;
@@ -165,7 +165,7 @@ public class MinesweeperGame {
         if (board[row][col] != "□") {
             return;
         }
-        if (mines[row][col]) {
+        if (landMines[row][col]) {
             return;
         }
         if (mineCounts[row][col] != 0) {
