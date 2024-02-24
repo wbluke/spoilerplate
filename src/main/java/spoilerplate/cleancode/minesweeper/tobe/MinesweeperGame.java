@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class MinesweeperGame {
 
     private static String[][] board = new String[8][10];
-    private static Integer[][] mineCounts = new Integer[8][10];
+    private static Integer[][] landMineCounts = new Integer[8][10];
     private static boolean[][] landMines = new boolean[8][10];
     private static int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
 
@@ -32,7 +32,7 @@ public class MinesweeperGame {
             for (int j = 0; j < 10; j++) {
                 int count = 0;
                 if (landMines[i][j]) {
-                    mineCounts[i][j] = -1;
+                    landMineCounts[i][j] = -1;
                     continue;
                 }
                 if (i - 1 >= 0 && j - 1 >= 0 && landMines[i - 1][j - 1]) {
@@ -59,7 +59,7 @@ public class MinesweeperGame {
                 if (i + 1 < 8 && j + 1 < 10 && landMines[i + 1][j + 1]) {
                     count++;
                 }
-                mineCounts[i][j] = count;
+                landMineCounts[i][j] = count;
             }
         }
         while (true) {
@@ -171,8 +171,8 @@ public class MinesweeperGame {
         if (landMines[row][col]) {
             return;
         }
-        if (mineCounts[row][col] != 0) {
-            board[row][col] = String.valueOf(mineCounts[row][col]);
+        if (landMineCounts[row][col] != 0) {
+            board[row][col] = String.valueOf(landMineCounts[row][col]);
             return;
         } else {
             board[row][col] = "■";
