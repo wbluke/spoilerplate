@@ -29,7 +29,7 @@ public class MinesweeperGame {
             for (int j = 0; j < 10; j++) {
                 int count = 0;
                 if (landMines[i][j]) {
-                    landMineCounts[i][j] = -1;
+                    landMineCounts[i][j] = 0;
                     continue;
                 }
                 if (i - 1 >= 0 && j - 1 >= 0 && landMines[i - 1][j - 1]) {
