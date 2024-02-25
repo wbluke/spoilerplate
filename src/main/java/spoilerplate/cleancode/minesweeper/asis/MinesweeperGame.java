@@ -124,15 +124,15 @@ public class MinesweeperGame {
             if (input2.equals("2")) {
                 board[row][col] = "⚑";
                 System.out.println(input + " 셀에 깃발을 꽂았습니다.");
-                boolean isAllOpened = true;
+                boolean open = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 10; j++) {
                         if (board[i][j] == "□") {
-                            isAllOpened = false;
+                            open = false;
                         }
                     }
                 }
-                if (isAllOpened) {
+                if (open) {
                     gameStatus = 1;
                 }
                 continue;
@@ -144,15 +144,15 @@ public class MinesweeperGame {
             } else {
                 open(row, col);
             }
-            boolean isAllOpened = true;
+            boolean open = true;
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 10; j++) {
                     if (board[i][j] == "□") {
-                        isAllOpened = false;
+                        open = false;
                     }
                 }
             }
-            if (isAllOpened) {
+            if (open) {
                 gameStatus = 1;
             }
         }
