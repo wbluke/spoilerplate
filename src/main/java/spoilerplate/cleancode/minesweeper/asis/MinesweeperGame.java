@@ -28,35 +28,35 @@ public class MinesweeperGame {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 10; j++) {
                 int count = 0;
-                if (landMines[i][j]) {
-                    landMineCounts[i][j] = 0;
+                if (!landMines[i][j]) {
+                    if (i - 1 >= 0 && j - 1 >= 0 && landMines[i - 1][j - 1]) {
+                        count++;
+                    }
+                    if (i - 1 >= 0 && landMines[i - 1][j]) {
+                        count++;
+                    }
+                    if (i - 1 >= 0 && j + 1 < 10 && landMines[i - 1][j + 1]) {
+                        count++;
+                    }
+                    if (j - 1 >= 0 && landMines[i][j - 1]) {
+                        count++;
+                    }
+                    if (j + 1 < 10 && landMines[i][j + 1]) {
+                        count++;
+                    }
+                    if (i + 1 < 8 && j - 1 >= 0 && landMines[i + 1][j - 1]) {
+                        count++;
+                    }
+                    if (i + 1 < 8 && landMines[i + 1][j]) {
+                        count++;
+                    }
+                    if (i + 1 < 8 && j + 1 < 10 && landMines[i + 1][j + 1]) {
+                        count++;
+                    }
+                    landMineCounts[i][j] = count;
                     continue;
                 }
-                if (i - 1 >= 0 && j - 1 >= 0 && landMines[i - 1][j - 1]) {
-                    count++;
-                }
-                if (i - 1 >= 0 && landMines[i - 1][j]) {
-                    count++;
-                }
-                if (i - 1 >= 0 && j + 1 < 10 && landMines[i - 1][j + 1]) {
-                    count++;
-                }
-                if (j - 1 >= 0 && landMines[i][j - 1]) {
-                    count++;
-                }
-                if (j + 1 < 10 && landMines[i][j + 1]) {
-                    count++;
-                }
-                if (i + 1 < 8 && j - 1 >= 0 && landMines[i + 1][j - 1]) {
-                    count++;
-                }
-                if (i + 1 < 8 && landMines[i + 1][j]) {
-                    count++;
-                }
-                if (i + 1 < 8 && j + 1 < 10 && landMines[i + 1][j + 1]) {
-                    count++;
-                }
-                landMineCounts[i][j] = count;
+                landMineCounts[i][j] = 0;
             }
         }
         while (true) {
