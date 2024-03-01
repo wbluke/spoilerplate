@@ -35,23 +35,30 @@ public class MinesweeperGame {
             }
             String cellInput = getCellInputFromUser(scanner);
             String userActionInput = getUserActionInputFromUser(cellInput, scanner);
-            int selectedCol = getSelectedCol(cellInput);
-            int selectedRow = getSelectedRow(cellInput);
-            if (doesUserChooseToPlantFlag(userActionInput)) {
-                BOARD[selectedRow][selectedCol] = FLAG_SIGN;
-                System.out.println(cellInput + " 셀에 깃발을 꽂았습니다.");
-                checkIfGameIsOver();
-                continue;
-            }
+            actOnCell(cellInput, userActionInput);
+        }
+    }
+
+    private static void actOnCell(String cellInput, String userActionInput) {
+        int selectedCol = getSelectedCol(cellInput);
+        int selectedRow = getSelectedRow(cellInput);
+        if (doesUserChooseToPlantFlag(userActionInput)) {
+            BOARD[selectedRow][selectedCol] = FLAG_SIGN;
+            System.out.println(cellInput + " 셀에 깃발을 꽂았습니다.");
+            checkIfGameIsOver();
+            return;
+        }
+        if (doesUserChooseToOpenCell(userActionInput)) {
             if (doesUserPickLandMine(selectedRow, selectedCol)) {
                 BOARD[selectedRow][selectedCol] = LAND_MINE_SIGN;
                 changeGameStatusToLose();
-                continue;
-            } else {
-                open(selectedRow, selectedCol);
+                return;
             }
+            open(selectedRow, selectedCol);
             checkIfGameIsOver();
+            return;
         }
+        System.out.println("잘못된 번호를 선택하셨습니다.");
     }
 
     private static void changeGameStatusToLose() {
@@ -64,6 +71,10 @@ public class MinesweeperGame {
 
     private static boolean doesUserChooseToPlantFlag(String userActionInput) {
         return userActionInput.equals("2");
+    }
+
+    private static boolean doesUserChooseToOpenCell(String userActionInput) {
+        return userActionInput.equals("1");
     }
 
     private static int getSelectedRow(String cellInput) {

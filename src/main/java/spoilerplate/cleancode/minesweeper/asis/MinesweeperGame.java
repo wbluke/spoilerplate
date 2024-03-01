@@ -135,25 +135,27 @@ public class MinesweeperGame {
                 if (open) {
                     gameStatus = 1;
                 }
-                continue;
-            }
-            if (landMines[row][col]) {
-                board[row][col] = "☼";
-                gameStatus = -1;
-                continue;
-            } else {
-                open(row, col);
-            }
-            boolean open = true;
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 10; j++) {
-                    if (board[i][j] == "□") {
-                        open = false;
+            } else if (input2.equals("1")) {
+                if (landMines[row][col]) {
+                    board[row][col] = "☼";
+                    gameStatus = -1;
+                    continue;
+                } else {
+                    open(row, col);
+                }
+                boolean open = true;
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        if (board[i][j] == "□") {
+                            open = false;
+                        }
                     }
                 }
-            }
-            if (open) {
-                gameStatus = 1;
+                if (open) {
+                    gameStatus = 1;
+                }
+            } else {
+                System.out.println("잘못된 번호를 선택하셨습니다.");
             }
         }
     }
