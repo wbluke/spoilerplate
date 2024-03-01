@@ -24,8 +24,10 @@ public class MinesweeperGame {
     public static void main(String[] args) {
         showGameStartComments();
         initializeGame();
+
         while (true) {
             showBoard();
+
             if (doesUserWinTheGame()) {
                 System.out.println("지뢰를 모두 찾았습니다. GAME CLEAR!");
                 break;
@@ -34,6 +36,7 @@ public class MinesweeperGame {
                 System.out.println("지뢰를 밟았습니다. GAME OVER!");
                 break;
             }
+
             String cellInput = getCellInputFromUser();
             String userActionInput = getUserActionInputFromUser(cellInput);
             actOnCell(cellInput, userActionInput);
@@ -43,22 +46,26 @@ public class MinesweeperGame {
     private static void actOnCell(String cellInput, String userActionInput) {
         int selectedCol = getSelectedCol(cellInput);
         int selectedRow = getSelectedRow(cellInput);
+
         if (doesUserChooseToPlantFlag(userActionInput)) {
             BOARD[selectedRow][selectedCol] = FLAG_SIGN;
             System.out.println(cellInput + " 셀에 깃발을 꽂았습니다.");
             checkIfGameIsOver();
             return;
         }
+
         if (doesUserChooseToOpenCell(userActionInput)) {
             if (doesUserPickLandMine(selectedRow, selectedCol)) {
                 BOARD[selectedRow][selectedCol] = LAND_MINE_SIGN;
                 changeGameStatusToLose();
                 return;
             }
+
             open(selectedRow, selectedCol);
             checkIfGameIsOver();
             return;
         }
+
         System.out.println("잘못된 번호를 선택하셨습니다.");
     }
 
@@ -96,6 +103,7 @@ public class MinesweeperGame {
     private static String getCellInputFromUser() {
         System.out.println("오픈할 좌표를 입력하세요. (예: a1)");
         String cellInput = SCANNER.nextLine();
+
         System.out.println(cellInput + " 셀을 선택하셨습니다.");
         return cellInput;
     }
@@ -174,11 +182,13 @@ public class MinesweeperGame {
                 BOARD[row][col] = CLOSED_CELL_SIGN;
             }
         }
+
         for (int i = 0; i < 10; i++) {
             int width = new Random().nextInt(BOARD_COL_SIZE);
             int height = new Random().nextInt(BOARD_ROW_SIZE);
             LAND_MINES[height][width] = true;
         }
+
         for (int row = 0; row < BOARD_ROW_SIZE; row++) {
             for (int col = 0; col < BOARD_COL_SIZE; col++) {
                 int count = 0;
