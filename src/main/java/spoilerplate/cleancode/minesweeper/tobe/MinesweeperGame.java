@@ -39,7 +39,11 @@ public class MinesweeperGame {
 
             String cellInput = getCellInputFromUser();
             String userActionInput = getUserActionInputFromUser(cellInput);
-            actOnCell(cellInput, userActionInput);
+            try {
+                actOnCell(cellInput, userActionInput);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -134,7 +138,11 @@ public class MinesweeperGame {
     }
 
     private static int convertRowFrom(char cellInputRow) {
-        return Character.getNumericValue(cellInputRow) - 1;
+        int rowIndex = Character.getNumericValue(cellInputRow) - 1;
+        if (rowIndex >= BOARD_ROW_SIZE) {
+            throw new IllegalArgumentException("잘못된 입력입니다.");
+        }
+        return rowIndex;
     }
 
     private static int convertColFrom(char cellInputCol) {
@@ -160,7 +168,7 @@ public class MinesweeperGame {
             case 'j':
                 return 9;
             default:
-                return -1;
+                throw new IllegalArgumentException("잘못된 입력입니다.");
         }
     }
 
@@ -240,7 +248,7 @@ public class MinesweeperGame {
         if (row < 0 || row >= BOARD_ROW_SIZE || col < 0 || col >= BOARD_COL_SIZE) {
             return;
         }
-        if (BOARD[row][col] != CLOSED_CELL_SIGN) {
+        if (!BOARD[row][col].equals(CLOSED_CELL_SIGN)) {
             return;
         }
         if (LAND_MINES[row][col]) {

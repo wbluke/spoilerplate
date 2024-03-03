@@ -127,7 +127,7 @@ public class MinesweeperGame {
                 boolean open = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 10; j++) {
-                        if (board[i][j] == "□") {
+                        if (board[i][j].equals("□")) {
                             open = false;
                         }
                     }
@@ -146,7 +146,7 @@ public class MinesweeperGame {
                 boolean open = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 10; j++) {
-                        if (board[i][j] == "□") {
+                        if (board[i][j].equals("□")) {
                             open = false;
                         }
                     }
@@ -164,7 +164,7 @@ public class MinesweeperGame {
         if (row < 0 || row >= 8 || col < 0 || col >= 10) {
             return;
         }
-        if (board[row][col] != "□") {
+        if (!board[row][col].equals("□")) {
             return;
         }
         if (landMines[row][col]) {
