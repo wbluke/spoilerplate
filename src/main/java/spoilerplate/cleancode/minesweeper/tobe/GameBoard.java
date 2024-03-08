@@ -5,10 +5,13 @@ import java.util.Random;
 
 public class GameBoard {
 
+    private static final int BOARD_ROW_SIZE = 8;
+    private static final int BOARD_COL_SIZE = 10;
+
     private final Cell[][] board;
 
-    public GameBoard(int row, int col) {
-        board = new Cell[row][col];
+    public GameBoard() {
+        board = new Cell[BOARD_ROW_SIZE][BOARD_COL_SIZE];
     }
 
     public int getRowSize() {

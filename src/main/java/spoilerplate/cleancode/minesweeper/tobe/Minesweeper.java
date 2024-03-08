@@ -5,9 +5,7 @@ import spoilerplate.cleancode.minesweeper.tobe.io.ConsoleOutput;
 
 public class Minesweeper {
 
-    private static final int BOARD_ROW_SIZE = 8;
-    private static final int BOARD_COL_SIZE = 10;
-    private final GameBoard gameBoard = new GameBoard(BOARD_ROW_SIZE, BOARD_COL_SIZE);
+    private final GameBoard gameBoard = new GameBoard();
     private final ConsoleInput consoleInput = new ConsoleInput();
     private final ConsoleOutput consoleOutput = new ConsoleOutput();
     private int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
@@ -123,7 +121,7 @@ public class Minesweeper {
 
     private int convertRowFrom(char cellInputRow) {
         int rowIndex = Character.getNumericValue(cellInputRow) - 1;
-        if (rowIndex >= BOARD_ROW_SIZE) {
+        if (rowIndex >= gameBoard.getRowSize()) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
         return rowIndex;
@@ -157,7 +155,7 @@ public class Minesweeper {
     }
 
     private void open(int row, int col) {
-        if (row < 0 || row >= BOARD_ROW_SIZE || col < 0 || col >= BOARD_COL_SIZE) {
+        if (row < 0 || row >= gameBoard.getRowSize() || col < 0 || col >= gameBoard.getColSize()) {
             return;
         }
         if (gameBoard.isAlreadyOpened(row, col)) {
