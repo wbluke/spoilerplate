@@ -7,6 +7,7 @@ public class GameBoard {
 
     private static final int BOARD_ROW_SIZE = 8;
     private static final int BOARD_COL_SIZE = 10;
+    private static final int LAND_MINE_COUNT = 10;
 
     private final Cell[][] board;
 
@@ -72,7 +73,7 @@ public class GameBoard {
             }
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < LAND_MINE_COUNT; i++) {
             int width = new Random().nextInt(colSize);
             int height = new Random().nextInt(rowSize);
             turnOnLandMine(height, width);
@@ -85,7 +86,7 @@ public class GameBoard {
                 }
                 int count = countSurroundLandMines(row, col);
                 Cell cell = findCell(row, col);
-                cell.updateLandMineCount(count);
+                cell.updateNearbyLandMineCount(count);
             }
         }
     }
