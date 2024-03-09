@@ -37,24 +37,24 @@ public class Minesweeper {
     }
 
     private void actOnCell(String cellInput, String userActionInput) {
-        int selectedCol = getSelectedCol(cellInput);
-        int selectedRow = getSelectedRow(cellInput);
+        int selectedColIndex = getSelectedColIndex(cellInput);
+        int selectedRowIndex = getSelectedRowIndex(cellInput);
 
         if (doesUserChooseToPlantFlag(userActionInput)) {
-            gameBoard.flag(selectedRow, selectedCol);
+            gameBoard.flag(selectedRowIndex, selectedColIndex);
             consoleOutput.printCommentForFlagAction(cellInput);
             checkIfGameIsOver();
             return;
         }
 
         if (doesUserChooseToOpenCell(userActionInput)) {
-            if (doesUserPickLandMine(selectedRow, selectedCol)) {
-                gameBoard.open(selectedRow, selectedCol);
+            if (doesUserPickLandMine(selectedRowIndex, selectedColIndex)) {
+                gameBoard.open(selectedRowIndex, selectedColIndex);
                 changeGameStatusToLose();
                 return;
             }
 
-            open(selectedRow, selectedCol);
+            open(selectedRowIndex, selectedColIndex);
             checkIfGameIsOver();
             return;
         }
@@ -78,12 +78,12 @@ public class Minesweeper {
         return userActionInput.equals("1");
     }
 
-    private int getSelectedRow(String cellInput) {
+    private int getSelectedRowIndex(String cellInput) {
         char cellInputRow = cellInput.charAt(1);
         return convertRowFrom(cellInputRow);
     }
 
-    private int getSelectedCol(String cellInput) {
+    private int getSelectedColIndex(String cellInput) {
         char cellInputCol = cellInput.charAt(0);
         return convertColFrom(cellInputCol);
     }
