@@ -21,9 +21,9 @@ public class MinesweeperGame {
             }
         }
         for (int i = 0; i < 10; i++) {
-            int width = new Random().nextInt(10);
-            int height = new Random().nextInt(8);
-            landMines[height][width] = true;
+            int col = new Random().nextInt(10);
+            int row = new Random().nextInt(8);
+            landMines[row][col] = true;
         }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 10; j++) {
@@ -60,7 +60,7 @@ public class MinesweeperGame {
             }
         }
         while (true) {
-            System.out.println("   A B C D E F G H I J");
+            System.out.println("   a b c d e f g h i j");
             for (int i = 0; i < 8; i++) {
                 System.out.printf("%d  ", i + 1);
                 for (int j = 0; j < 10; j++) {

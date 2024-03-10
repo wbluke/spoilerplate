@@ -1,6 +1,9 @@
 package spoilerplate.cleancode.minesweeper.tobe.io;
 
-import spoilerplate.cleancode.minesweeper.tobe.GameBoard;
+import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class ConsoleOutput {
 
@@ -14,15 +17,23 @@ public class ConsoleOutput {
         int rowSize = gameBoard.getRowSize();
         int colSize = gameBoard.getColSize();
 
-        System.out.println("   A B C D E F G H I J");
+        System.out.println("    " + generateColAlphabets(colSize));
         for (int row = 0; row < rowSize; row++) {
-            System.out.printf("%d  ", row + 1);
+            System.out.printf("%2d  ", row + 1);
             for (int col = 0; col < colSize; col++) {
                 System.out.print(gameBoard.getSign(row, col) + " ");
             }
             System.out.println();
         }
         System.out.println();
+    }
+
+    private String generateColAlphabets(int colSize) {
+        List<String> alphabets = IntStream.range(0, colSize)
+            .mapToObj(index -> (char) ('a' + index))
+            .map(Object::toString)
+            .toList();
+        return String.join(" ", alphabets);
     }
 
     public void printGameWinningComment() {

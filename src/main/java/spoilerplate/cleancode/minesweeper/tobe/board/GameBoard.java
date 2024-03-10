@@ -1,18 +1,21 @@
-package spoilerplate.cleancode.minesweeper.tobe;
+package spoilerplate.cleancode.minesweeper.tobe.board;
+
+import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
 
 import java.util.Arrays;
 import java.util.Random;
 
 public class GameBoard {
 
-    private static final int BOARD_ROW_SIZE = 8;
-    private static final int BOARD_COL_SIZE = 10;
-    private static final int LAND_MINE_COUNT = 10;
-
     private final Cell[][] board;
+    private final int landMineCount;
 
-    public GameBoard() {
-        board = new Cell[BOARD_ROW_SIZE][BOARD_COL_SIZE];
+    public GameBoard(GameLevel gameLevel) {
+        int rowSize = gameLevel.getRowSize();
+        int colSize = gameLevel.getColSize();
+        board = new Cell[rowSize][colSize];
+
+        landMineCount = gameLevel.getLandMineCount();
     }
 
     public int getRowSize() {
@@ -73,10 +76,10 @@ public class GameBoard {
             }
         }
 
-        for (int i = 0; i < LAND_MINE_COUNT; i++) {
-            int width = new Random().nextInt(colSize);
-            int height = new Random().nextInt(rowSize);
-            turnOnLandMine(height, width);
+        for (int i = 0; i < landMineCount; i++) {
+            int col = new Random().nextInt(colSize);
+            int row = new Random().nextInt(rowSize);
+            turnOnLandMine(row, col);
         }
 
         for (int row = 0; row < rowSize; row++) {
@@ -91,8 +94,8 @@ public class GameBoard {
         }
     }
 
-    private void turnOnLandMine(int height, int width) {
-        Cell cell = findCell(height, width);
+    private void turnOnLandMine(int row, int col) {
+        Cell cell = findCell(row, col);
         cell.turnOnLandMine();
     }
 

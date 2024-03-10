@@ -1,4 +1,4 @@
-package spoilerplate.cleancode.minesweeper.tobe;
+package spoilerplate.cleancode.minesweeper.tobe.board;
 
 public class Cell {
 
