@@ -1,5 +1,9 @@
 package spoilerplate.cleancode.minesweeper.tobe.board;
 
+import spoilerplate.cleancode.minesweeper.tobe.board.cell.Cell;
+import spoilerplate.cleancode.minesweeper.tobe.board.cell.EmptyCell;
+import spoilerplate.cleancode.minesweeper.tobe.board.cell.LandMineCell;
+import spoilerplate.cleancode.minesweeper.tobe.board.cell.NumberCell;
 import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
 
 import java.util.Arrays;
@@ -72,14 +76,15 @@ public class GameBoard {
 
         for (int row = 0; row < rowSize; row++) {
             for (int col = 0; col < colSize; col++) {
-                board[row][col] = Cell.of();
+                board[row][col] = new EmptyCell();
             }
         }
 
         for (int i = 0; i < landMineCount; i++) {
             int col = new Random().nextInt(colSize);
             int row = new Random().nextInt(rowSize);
-            turnOnLandMine(row, col);
+
+            board[row][col] = new LandMineCell();
         }
 
         for (int row = 0; row < rowSize; row++) {
@@ -88,15 +93,13 @@ public class GameBoard {
                     continue;
                 }
                 int count = countSurroundLandMines(row, col);
-                Cell cell = findCell(row, col);
-                cell.updateNearbyLandMineCount(count);
+                if (count == 0) {
+                    continue;
+                }
+
+                board[row][col] = new NumberCell(count);
             }
         }
-    }
-
-    private void turnOnLandMine(int row, int col) {
-        Cell cell = findCell(row, col);
-        cell.turnOnLandMine();
     }
 
     private int countSurroundLandMines(int row, int col) {
