@@ -2,11 +2,13 @@ package spoilerplate.cleancode.minesweeper.tobe;
 
 import spoilerplate.cleancode.minesweeper.tobe.board.BoardIndexConverter;
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
+import spoilerplate.cleancode.minesweeper.tobe.game.GameInitializable;
+import spoilerplate.cleancode.minesweeper.tobe.game.GameRunnable;
 import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
 import spoilerplate.cleancode.minesweeper.tobe.io.ConsoleInput;
 import spoilerplate.cleancode.minesweeper.tobe.io.ConsoleOutput;
 
-public class Minesweeper {
+public class Minesweeper implements GameInitializable, GameRunnable {
 
     private final GameBoard gameBoard;
     private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
@@ -18,9 +20,12 @@ public class Minesweeper {
         gameBoard = new GameBoard(gameLevel);
     }
 
+    public void initialize() {
+        gameBoard.initializeGame();
+    }
+
     public void run() {
         consoleOutput.showGameStartComments();
-        gameBoard.initializeGame();
 
         while (true) {
             consoleOutput.showBoard(gameBoard);
