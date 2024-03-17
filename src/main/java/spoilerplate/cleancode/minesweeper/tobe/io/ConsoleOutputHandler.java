@@ -5,14 +5,16 @@ import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class ConsoleOutput {
+public class ConsoleOutputHandler implements MinesweeperOutputHandler {
 
+    @Override
     public void showGameStartComments() {
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println("지뢰찾기 게임 시작!");
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     }
 
+    @Override
     public void showBoard(GameBoard gameBoard) {
         int rowSize = gameBoard.getRowSize();
         int colSize = gameBoard.getColSize();
@@ -36,30 +38,37 @@ public class ConsoleOutput {
         return String.join(" ", alphabets);
     }
 
+    @Override
     public void printGameWinningComment() {
         System.out.println("지뢰를 모두 찾았습니다. GAME CLEAR!");
     }
 
+    @Override
     public void printGameLosingComment() {
         System.out.println("지뢰를 밟았습니다. GAME OVER!");
     }
 
+    @Override
     public void printCommentForSelectingCell() {
         System.out.println("선택할 좌표를 입력하세요. (예: a1)");
     }
 
+    @Override
     public void printCommentForSelectedCell(String cellInput) {
         System.out.println(cellInput + " 셀을 선택하셨습니다.");
     }
 
+    @Override
     public void printCommentForUserAction(String cellInput) {
         System.out.println(cellInput + " 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
     }
 
+    @Override
     public void printCommentForFlagAction(String cellInput) {
         System.out.println(cellInput + " 셀에 깃발을 꽂았습니다.");
     }
 
+    @Override
     public void printExceptionMessage(Throwable e) {
         System.out.println(e.getMessage());
     }
