@@ -73,7 +73,7 @@ public class Minesweeper implements GameInitializable, GameRunnable {
                 return;
             }
 
-            open(selectedRowIndex, selectedColIndex);
+            gameBoard.openSurroundCells(selectedRowIndex, selectedColIndex);
             checkIfGameIsOver();
             return;
         }
@@ -126,33 +126,6 @@ public class Minesweeper implements GameInitializable, GameRunnable {
 
     private void changeGameStatusToWin() {
         gameStatus = 1;
-    }
-
-    private void open(int row, int col) {
-        if (row < 0 || row >= gameBoard.getRowSize() || col < 0 || col >= gameBoard.getColSize()) {
-            return;
-        }
-        if (gameBoard.isAlreadyOpened(row, col)) {
-            return;
-        }
-        if (gameBoard.isLandMine(row, col)) {
-            return;
-        }
-
-        gameBoard.open(row, col);
-
-        if (gameBoard.hasLandMineCount(row, col)) {
-            return;
-        }
-
-        open(row - 1, col - 1);
-        open(row - 1, col);
-        open(row - 1, col + 1);
-        open(row, col - 1);
-        open(row, col + 1);
-        open(row + 1, col - 1);
-        open(row + 1, col);
-        open(row + 1, col + 1);
     }
 
 }

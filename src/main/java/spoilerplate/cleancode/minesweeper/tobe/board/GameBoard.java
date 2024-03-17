@@ -56,12 +56,12 @@ public class GameBoard {
             .allMatch(Cell::isChecked);
     }
 
-    public boolean isAlreadyOpened(int row, int col) {
+    private boolean isAlreadyOpened(int row, int col) {
         Cell cell = findCell(row, col);
         return cell.isAlreadyOpened();
     }
 
-    public boolean hasLandMineCount(int row, int col) {
+    private boolean hasLandMineCount(int row, int col) {
         Cell cell = findCell(row, col);
         return cell.hasLandMineCount();
     }
@@ -132,6 +132,33 @@ public class GameBoard {
             count++;
         }
         return count;
+    }
+
+    public void openSurroundCells(int row, int col) {
+        if (row < 0 || row >= getRowSize() || col < 0 || col >= getColSize()) {
+            return;
+        }
+        if (isAlreadyOpened(row, col)) {
+            return;
+        }
+        if (isLandMine(row, col)) {
+            return;
+        }
+
+        open(row, col);
+
+        if (hasLandMineCount(row, col)) {
+            return;
+        }
+
+        openSurroundCells(row - 1, col - 1);
+        openSurroundCells(row - 1, col);
+        openSurroundCells(row - 1, col + 1);
+        openSurroundCells(row, col - 1);
+        openSurroundCells(row, col + 1);
+        openSurroundCells(row + 1, col - 1);
+        openSurroundCells(row + 1, col);
+        openSurroundCells(row + 1, col + 1);
     }
 
 }
