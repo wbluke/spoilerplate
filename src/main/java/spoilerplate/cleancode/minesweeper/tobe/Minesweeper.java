@@ -37,11 +37,11 @@ public class Minesweeper implements GameInitializable, GameRunnable {
             outputHandler.showBoard(gameBoard);
 
             if (doesUserWinTheGame()) {
-                outputHandler.printGameWinningComment();
+                outputHandler.showGameWinningComment();
                 break;
             }
             if (doesUserLoseTheGame()) {
-                outputHandler.printGameLosingComment();
+                outputHandler.showGameLosingComment();
                 break;
             }
 
@@ -50,7 +50,7 @@ public class Minesweeper implements GameInitializable, GameRunnable {
             try {
                 actOnCell(cellInput, userActionInput);
             } catch (IllegalArgumentException e) {
-                outputHandler.printExceptionMessage(e);
+                outputHandler.showExceptionMessage(e);
             }
         }
     }
@@ -61,7 +61,7 @@ public class Minesweeper implements GameInitializable, GameRunnable {
 
         if (doesUserChooseToPlantFlag(userActionInput)) {
             gameBoard.flag(selectedRowIndex, selectedColIndex);
-            outputHandler.printCommentForFlagAction(cellInput);
+            outputHandler.showCommentForFlagAction(cellInput);
             checkIfGameIsOver();
             return;
         }
@@ -98,15 +98,15 @@ public class Minesweeper implements GameInitializable, GameRunnable {
     }
 
     private String getUserActionInputFromUser(String cellInput) {
-        outputHandler.printCommentForUserAction(cellInput);
+        outputHandler.showCommentForUserAction(cellInput);
         return inputHandler.getUserInput();
     }
 
     private String getCellInputFromUser() {
-        outputHandler.printCommentForSelectingCell();
+        outputHandler.showCommentForSelectingCell();
         String cellInput = inputHandler.getUserInput();
 
-        outputHandler.printCommentForSelectedCell(cellInput);
+        outputHandler.showCommentForSelectedCell(cellInput);
         return cellInput;
     }
 

@@ -39,37 +39,37 @@ public class ConsoleOutputHandler implements MinesweeperOutputHandler {
     }
 
     @Override
-    public void printGameWinningComment() {
+    public void showGameWinningComment() {
         System.out.println("지뢰를 모두 찾았습니다. GAME CLEAR!");
     }
 
     @Override
-    public void printGameLosingComment() {
+    public void showGameLosingComment() {
         System.out.println("지뢰를 밟았습니다. GAME OVER!");
     }
 
     @Override
-    public void printCommentForSelectingCell() {
+    public void showCommentForSelectingCell() {
         System.out.println("선택할 좌표를 입력하세요. (예: a1)");
     }
 
     @Override
-    public void printCommentForSelectedCell(String cellInput) {
+    public void showCommentForSelectedCell(String cellInput) {
         System.out.println(cellInput + " 셀을 선택하셨습니다.");
     }
 
     @Override
-    public void printCommentForUserAction(String cellInput) {
+    public void showCommentForUserAction(String cellInput) {
         System.out.println(cellInput + " 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
     }
 
     @Override
-    public void printCommentForFlagAction(String cellInput) {
+    public void showCommentForFlagAction(String cellInput) {
         System.out.println(cellInput + " 셀에 깃발을 꽂았습니다.");
     }
 
     @Override
-    public void printExceptionMessage(Throwable e) {
+    public void showExceptionMessage(Throwable e) {
         System.out.println(e.getMessage());
     }
 

@@ -8,18 +8,18 @@ public interface MinesweeperOutputHandler {
 
     void showBoard(GameBoard gameBoard);
 
-    void printGameWinningComment();
+    void showGameWinningComment();
 
-    void printGameLosingComment();
+    void showGameLosingComment();
 
-    void printCommentForSelectingCell();
+    void showCommentForSelectingCell();
 
-    void printCommentForSelectedCell(String cellInput);
+    void showCommentForSelectedCell(String cellInput);
 
-    void printCommentForUserAction(String cellInput);
+    void showCommentForUserAction(String cellInput);
 
-    void printCommentForFlagAction(String cellInput);
+    void showCommentForFlagAction(String cellInput);
 
-    void printExceptionMessage(Throwable e);
+    void showExceptionMessage(Throwable e);
 
 }
