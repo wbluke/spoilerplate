@@ -1,9 +1,6 @@
 package spoilerplate.cleancode.minesweeper.tobe.board;
 
-import spoilerplate.cleancode.minesweeper.tobe.board.cell.Cell;
-import spoilerplate.cleancode.minesweeper.tobe.board.cell.EmptyCell;
-import spoilerplate.cleancode.minesweeper.tobe.board.cell.LandMineCell;
-import spoilerplate.cleancode.minesweeper.tobe.board.cell.NumberCell;
+import spoilerplate.cleancode.minesweeper.tobe.board.cell.*;
 import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
 
 import java.util.Arrays;
