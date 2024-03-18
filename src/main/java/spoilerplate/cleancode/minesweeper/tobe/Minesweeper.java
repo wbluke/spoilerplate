@@ -2,6 +2,7 @@ package spoilerplate.cleancode.minesweeper.tobe;
 
 import spoilerplate.cleancode.minesweeper.tobe.board.BoardIndexConverter;
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
+import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameInitializable;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameRunnable;
 import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
@@ -58,22 +59,23 @@ public class Minesweeper implements GameInitializable, GameRunnable {
     private void actOnCell(String cellInput, String userActionInput) {
         int selectedColIndex = boardIndexConverter.convertColIndex(cellInput, gameBoard.getColSize());
         int selectedRowIndex = boardIndexConverter.convertRowIndex(cellInput, gameBoard.getRowSize());
+        CellPosition selectedCellPosition = CellPosition.of(selectedRowIndex, selectedColIndex);
 
         if (doesUserChooseToPlantFlag(userActionInput)) {
-            gameBoard.flag(selectedRowIndex, selectedColIndex);
+            gameBoard.flagAt(selectedCellPosition);
             outputHandler.showCommentForFlagAction(cellInput);
             checkIfGameIsOver();
             return;
         }
 
         if (doesUserChooseToOpenCell(userActionInput)) {
-            if (doesUserPickLandMine(selectedRowIndex, selectedColIndex)) {
-                gameBoard.open(selectedRowIndex, selectedColIndex);
+            if (doesUserPickLandMine(selectedCellPosition)) {
+                gameBoard.openAt(selectedCellPosition);
                 changeGameStatusToLose();
                 return;
             }
 
-            gameBoard.openSurroundCells(selectedRowIndex, selectedColIndex);
+            gameBoard.openSurroundedCells(selectedCellPosition);
             checkIfGameIsOver();
             return;
         }
@@ -85,8 +87,8 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         gameStatus = -1;
     }
 
-    private boolean doesUserPickLandMine(int selectedRow, int selectedCol) {
-        return gameBoard.isLandMine(selectedRow, selectedCol);
+    private boolean doesUserPickLandMine(CellPosition cellPosition) {
+        return gameBoard.isLandMineAt(cellPosition);
     }
 
     private boolean doesUserChooseToPlantFlag(String userActionInput) {

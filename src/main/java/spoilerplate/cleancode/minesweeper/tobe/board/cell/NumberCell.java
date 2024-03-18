@@ -48,7 +48,7 @@ public class NumberCell implements Cell {
     }
 
     @Override
-    public boolean isAlreadyOpened() {
+    public boolean isOpened() {
         return cellState.isOpened();
     }
 

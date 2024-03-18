@@ -1,6 +1,7 @@
 package spoilerplate.cleancode.minesweeper.tobe.io;
 
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
+import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -23,7 +24,8 @@ public class ConsoleOutputHandler implements MinesweeperOutputHandler {
         for (int row = 0; row < rowSize; row++) {
             System.out.printf("%2d  ", row + 1);
             for (int col = 0; col < colSize; col++) {
-                System.out.print(gameBoard.getSign(row, col) + " ");
+                CellPosition cellPosition = CellPosition.of(row, col);
+                System.out.print(gameBoard.getSign(cellPosition) + " ");
             }
             System.out.println();
         }

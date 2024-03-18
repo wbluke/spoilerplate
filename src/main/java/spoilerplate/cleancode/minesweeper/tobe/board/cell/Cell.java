@@ -17,6 +17,6 @@ public interface Cell {
 
     boolean isChecked();
 
-    boolean isAlreadyOpened();
+    boolean isOpened();
 
 }
