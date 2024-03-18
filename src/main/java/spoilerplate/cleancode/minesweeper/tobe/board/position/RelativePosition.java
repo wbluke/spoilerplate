@@ -16,16 +16,16 @@ public class RelativePosition {
         RelativePosition.of(1, 1)
     );
 
-    private final int dx;
-    private final int dy;
+    private final int deltaRow;
+    private final int deltaCol;
 
-    private RelativePosition(int dx, int dy) {
-        this.dx = dx;
-        this.dy = dy;
+    private RelativePosition(int deltaRow, int deltaCol) {
+        this.deltaRow = deltaRow;
+        this.deltaCol = deltaCol;
     }
 
-    public static RelativePosition of(int dx, int dy) {
-        return new RelativePosition(dx, dy);
+    public static RelativePosition of(int deltaRow, int deltaCol) {
+        return new RelativePosition(deltaRow, deltaCol);
     }
 
     @Override
@@ -33,28 +33,20 @@ public class RelativePosition {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RelativePosition that = (RelativePosition) o;
-        return dx == that.dx && dy == that.dy;
+        return deltaRow == that.deltaRow && deltaCol == that.deltaCol;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dx, dy);
+        return Objects.hash(deltaRow, deltaCol);
     }
 
-    public int getDx() {
-        return dx;
+    public int getDeltaRow() {
+        return deltaRow;
     }
 
-    public int getDy() {
-        return dy;
-    }
-
-    public int plusX(int x) {
-        return x + dx;
-    }
-
-    public int plusY(int y) {
-        return y + dy;
+    public int getDeltaCol() {
+        return deltaCol;
     }
 
 }

@@ -110,9 +110,8 @@ public class GameBoard {
         int colSize = getColSize();
 
         long count = RelativePosition.SURROUNDED_POSITIONS.stream()
-            .filter(relativePosition -> canMovePosition(cellPosition, relativePosition))
+            .filter(relativePosition -> cellPosition.canMoveBy(relativePosition, rowSize, colSize))
             .map(cellPosition::moveBy)
-            .filter(position -> position.getRowIndex() < rowSize && position.getColIndex() < colSize)
             .filter(this::isLandMineAt)
             .count();
 
@@ -120,9 +119,6 @@ public class GameBoard {
     }
 
     public void openSurroundedCells(CellPosition cellPosition) {
-        if (cellPosition.getRowIndex() >= getRowSize() || cellPosition.getColIndex() >= getColSize()) {
-            return;
-        }
         if (isOpened(cellPosition)) {
             return;
         }
@@ -137,14 +133,9 @@ public class GameBoard {
         }
 
         RelativePosition.SURROUNDED_POSITIONS.stream()
-            .filter(relativePosition -> canMovePosition(cellPosition, relativePosition))
+            .filter(relativePosition -> cellPosition.canMoveBy(relativePosition, getRowSize(), getColSize()))
             .map(cellPosition::moveBy)
             .forEach(this::openSurroundedCells);
-    }
-
-    private boolean canMovePosition(CellPosition cellPosition, RelativePosition relativePosition) {
-        return relativePosition.plusX(cellPosition.getRowIndex()) >= 0
-            && relativePosition.plusY(cellPosition.getColIndex()) >= 0;
     }
 
 }

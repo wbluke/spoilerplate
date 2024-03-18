@@ -43,9 +43,19 @@ public class CellPosition {
 
     public CellPosition moveBy(RelativePosition relativePosition) {
         return CellPosition.of(
-            rowIndex + relativePosition.getDx(),
-            colIndex + relativePosition.getDy()
+            rowIndex + relativePosition.getDeltaRow(),
+            colIndex + relativePosition.getDeltaCol()
         );
+    }
+
+    public boolean canMoveBy(RelativePosition relativePosition, int boardRowSize, int boardColSize) {
+        int nextRowIndex = rowIndex + relativePosition.getDeltaRow();
+        int nextColIndex = colIndex + relativePosition.getDeltaCol();
+
+        return nextRowIndex >= 0
+            && nextRowIndex < boardRowSize
+            && nextColIndex >= 0
+            && nextColIndex < boardColSize;
     }
 
 }
