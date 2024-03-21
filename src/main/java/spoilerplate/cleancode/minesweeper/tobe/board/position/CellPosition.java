@@ -41,21 +41,27 @@ public class CellPosition {
         return colIndex;
     }
 
-    public CellPosition moveBy(RelativePosition relativePosition) {
+    public CellPosition calculatePositionBy(RelativePosition relativePosition) {
         return CellPosition.of(
             rowIndex + relativePosition.getDeltaRow(),
             colIndex + relativePosition.getDeltaCol()
         );
     }
 
-    public boolean canMoveBy(RelativePosition relativePosition, int boardRowSize, int boardColSize) {
+    public boolean canCalculatePositionBy(RelativePosition relativePosition) {
         int nextRowIndex = rowIndex + relativePosition.getDeltaRow();
         int nextColIndex = colIndex + relativePosition.getDeltaCol();
 
         return nextRowIndex >= 0
-            && nextRowIndex < boardRowSize
-            && nextColIndex >= 0
-            && nextColIndex < boardColSize;
+            && nextColIndex >= 0;
+    }
+
+    public boolean isRowIndexLessThan(int rowSize) {
+        return rowIndex < rowSize;
+    }
+
+    public boolean isColIndexLessThan(int colSize) {
+        return colIndex < colSize;
     }
 
 }
