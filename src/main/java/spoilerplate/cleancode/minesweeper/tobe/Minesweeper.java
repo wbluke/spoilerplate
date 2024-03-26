@@ -3,9 +3,9 @@ package spoilerplate.cleancode.minesweeper.tobe;
 import spoilerplate.cleancode.minesweeper.tobe.board.BoardIndexConverter;
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
+import spoilerplate.cleancode.minesweeper.tobe.config.GameConfig;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameInitializable;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameRunnable;
-import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
 import spoilerplate.cleancode.minesweeper.tobe.io.MinesweeperInputHandler;
 import spoilerplate.cleancode.minesweeper.tobe.io.MinesweeperOutputHandler;
 
@@ -17,14 +17,10 @@ public class Minesweeper implements GameInitializable, GameRunnable {
     private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
     private int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
 
-    public Minesweeper(
-        GameLevel gameLevel,
-        MinesweeperInputHandler minesweeperInputHandler,
-        MinesweeperOutputHandler minesweeperOutputHandler
-    ) {
-        this.gameBoard = new GameBoard(gameLevel);
-        this.inputHandler = minesweeperInputHandler;
-        this.outputHandler = minesweeperOutputHandler;
+    public Minesweeper(GameConfig gameConfig) {
+        this.gameBoard = new GameBoard(gameConfig.getGameLevel());
+        this.inputHandler = gameConfig.getInputHandler();
+        this.outputHandler = gameConfig.getOutputHandler();
     }
 
     public void initialize() {
