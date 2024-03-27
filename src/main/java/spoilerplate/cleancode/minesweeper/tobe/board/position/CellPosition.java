@@ -56,12 +56,20 @@ public class CellPosition {
             && nextColIndex >= 0;
     }
 
-    public boolean isRowIndexLessThan(int rowSize) {
-        return rowIndex < rowSize;
+    public boolean isRowIndexLessThan(int rowIndex) {
+        return this.rowIndex < rowIndex;
     }
 
-    public boolean isColIndexLessThan(int colSize) {
-        return colIndex < colSize;
+    public boolean isColIndexLessThan(int colIndex) {
+        return this.colIndex < colIndex;
+    }
+
+    public boolean isRowIndexMoreThanOrEqual(int rowIndex) {
+        return this.rowIndex >= rowIndex;
+    }
+
+    public boolean isColIndexMoreThanOrEqual(int colIndex) {
+        return this.colIndex >= colIndex;
     }
 
 }

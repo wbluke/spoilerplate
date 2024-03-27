@@ -14,8 +14,6 @@ public interface MinesweeperOutputHandler {
 
     void showCommentForSelectingCell();
 
-    void showCommentForSelectedCell(String cellInput);
-
     void showCommentForUserAction();
 
     void showExceptionMessage(Throwable e);

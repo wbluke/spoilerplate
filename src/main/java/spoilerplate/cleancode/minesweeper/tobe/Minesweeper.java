@@ -1,6 +1,5 @@
 package spoilerplate.cleancode.minesweeper.tobe;
 
-import spoilerplate.cleancode.minesweeper.tobe.board.BoardIndexConverter;
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
 import spoilerplate.cleancode.minesweeper.tobe.config.GameConfig;
@@ -8,13 +7,13 @@ import spoilerplate.cleancode.minesweeper.tobe.game.GameInitializable;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameRunnable;
 import spoilerplate.cleancode.minesweeper.tobe.io.MinesweeperInputHandler;
 import spoilerplate.cleancode.minesweeper.tobe.io.MinesweeperOutputHandler;
+import spoilerplate.cleancode.minesweeper.tobe.user.UserAction;
 
 public class Minesweeper implements GameInitializable, GameRunnable {
 
     private final GameBoard gameBoard;
     private final MinesweeperInputHandler inputHandler;
     private final MinesweeperOutputHandler outputHandler;
-    private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
 
     public Minesweeper(GameConfig gameConfig) {
         this.gameBoard = new GameBoard(gameConfig.getGameLevel());
@@ -34,10 +33,11 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         while (gameBoard.isInProgress()) {
             outputHandler.showBoard(gameBoard);
 
-            String cellInput = getCellInputFromUser();
-            String userActionInput = getUserActionInputFromUser();
             try {
-                actOnCell(cellInput, userActionInput);
+                CellPosition selectedCellPosition = getCellInputFromUser();
+                UserAction userAction = getUserActionInputFromUser();
+
+                actOnCell(selectedCellPosition, userAction);
             } catch (IllegalArgumentException e) {
                 outputHandler.showExceptionMessage(e);
             }
@@ -53,17 +53,13 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         }
     }
 
-    private void actOnCell(String cellInput, String userActionInput) {
-        int selectedColIndex = boardIndexConverter.convertColIndex(cellInput, gameBoard.getColSize());
-        int selectedRowIndex = boardIndexConverter.convertRowIndex(cellInput, gameBoard.getRowSize());
-        CellPosition selectedCellPosition = CellPosition.of(selectedRowIndex, selectedColIndex);
-
-        if (doesUserChooseToPlantFlag(userActionInput)) {
+    private void actOnCell(CellPosition selectedCellPosition, UserAction userAction) {
+        if (doesUserChooseToPlantFlag(userAction)) {
             gameBoard.flagAt(selectedCellPosition);
             return;
         }
 
-        if (doesUserChooseToOpenCell(userActionInput)) {
+        if (doesUserChooseToOpenCell(userAction)) {
             gameBoard.openAt(selectedCellPosition);
             return;
         }
@@ -71,25 +67,29 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         throw new IllegalArgumentException("잘못된 번호를 선택하셨습니다.");
     }
 
-    private boolean doesUserChooseToPlantFlag(String userActionInput) {
-        return userActionInput.equals("2");
+    private boolean doesUserChooseToPlantFlag(UserAction userAction) {
+        return userAction == UserAction.FLAG;
     }
 
-    private boolean doesUserChooseToOpenCell(String userActionInput) {
-        return userActionInput.equals("1");
+    private boolean doesUserChooseToOpenCell(UserAction userAction) {
+        return userAction == UserAction.OPEN;
     }
 
-    private String getUserActionInputFromUser() {
+    private UserAction getUserActionInputFromUser() {
         outputHandler.showCommentForUserAction();
-        return inputHandler.getUserInput();
+
+        return inputHandler.getUserActionFromUser();
     }
 
-    private String getCellInputFromUser() {
+    private CellPosition getCellInputFromUser() {
         outputHandler.showCommentForSelectingCell();
-        String cellInput = inputHandler.getUserInput();
 
-        outputHandler.showCommentForSelectedCell(cellInput);
-        return cellInput;
+        CellPosition cellPosition = inputHandler.getCellPositionFromUser();
+        if (gameBoard.isInvalidCellPosition(cellPosition)) {
+            throw new IllegalArgumentException("잘못된 번호를 선택하셨습니다.");
+        }
+
+        return cellPosition;
     }
 
 }

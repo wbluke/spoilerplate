@@ -1,4 +1,4 @@
-package spoilerplate.cleancode.minesweeper.tobe.io;
+package spoilerplate.cleancode.minesweeper.tobe.board;
 
 public enum GameStatus {
 

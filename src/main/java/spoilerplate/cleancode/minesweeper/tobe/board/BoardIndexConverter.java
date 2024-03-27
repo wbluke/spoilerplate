@@ -4,29 +4,29 @@ public class BoardIndexConverter {
 
     private static final char BASE_CHAR_FOR_COL = 'a';
 
-    public int convertRowIndex(String cellInput, int boardRowSize) {
+    public int convertRowIndex(String cellInput) {
         String cellInputRow = cellInput.substring(1);
-        return convertRowFrom(cellInputRow, boardRowSize);
+        return convertRowFrom(cellInputRow);
     }
 
-    public int convertColIndex(String cellInput, int boardColSize) {
+    public int convertColIndex(String cellInput) {
         char cellInputCol = cellInput.charAt(0);
-        return convertColFrom(cellInputCol, boardColSize);
+        return convertColFrom(cellInputCol);
     }
 
-    private int convertRowFrom(String cellInputRow, int boardRowSize) {
+    private int convertRowFrom(String cellInputRow) {
         int rowIndex = Integer.parseInt(cellInputRow) - 1;
 
-        if (rowIndex < 0 || rowIndex >= boardRowSize) {
+        if (rowIndex < 0) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
         return rowIndex;
     }
 
-    private int convertColFrom(char cellInputCol, int boardColSize) {
+    private int convertColFrom(char cellInputCol) {
         int colIndex = cellInputCol - BASE_CHAR_FOR_COL;
 
-        if (colIndex < 0 || colIndex >= boardColSize) {
+        if (colIndex < 0) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
         }
         return colIndex;

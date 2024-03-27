@@ -5,7 +5,6 @@ import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPositions;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.RelativePosition;
 import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
-import spoilerplate.cleancode.minesweeper.tobe.io.GameStatus;
 
 import java.util.List;
 
@@ -181,6 +180,11 @@ public class GameBoard {
 
     public boolean isLosing() {
         return this.gameStatus == GameStatus.LOSE;
+    }
+
+    public boolean isInvalidCellPosition(CellPosition cellPosition) {
+        return cellPosition.isRowIndexMoreThanOrEqual(getRowSize())
+            || cellPosition.isColIndexMoreThanOrEqual(getColSize());
     }
 
 }

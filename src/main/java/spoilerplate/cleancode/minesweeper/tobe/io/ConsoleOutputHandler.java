@@ -3,7 +3,8 @@ package spoilerplate.cleancode.minesweeper.tobe.io;
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
 import spoilerplate.cleancode.minesweeper.tobe.board.cell.CellSnapshot;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
-import spoilerplate.cleancode.minesweeper.tobe.io.sign.*;
+import spoilerplate.cleancode.minesweeper.tobe.io.sign.CellSignFinder;
+import spoilerplate.cleancode.minesweeper.tobe.io.sign.CellSignProvider;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -62,11 +63,6 @@ public class ConsoleOutputHandler implements MinesweeperOutputHandler {
     @Override
     public void showCommentForSelectingCell() {
         System.out.println("선택할 좌표를 입력하세요. (예: a1)");
-    }
-
-    @Override
-    public void showCommentForSelectedCell(String cellInput) {
-        System.out.println(cellInput + " 셀을 선택하셨습니다.");
     }
 
     @Override
