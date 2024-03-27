@@ -1,9 +1,10 @@
 package spoilerplate.cleancode.minesweeper.tobe;
 
-import spoilerplate.cleancode.minesweeper.tobe.config.GameConfig;
-import spoilerplate.cleancode.minesweeper.tobe.gamelevel.Beginner;
-import spoilerplate.cleancode.minesweeper.tobe.io.ConsoleInputHandler;
-import spoilerplate.cleancode.minesweeper.tobe.io.ConsoleOutputHandler;
+import spoilerplate.cleancode.minesweeper.tobe.minesweeper.config.GameConfig;
+import spoilerplate.cleancode.minesweeper.tobe.minesweeper.gamelevel.Beginner;
+import spoilerplate.cleancode.minesweeper.tobe.minesweeper.io.ConsoleInputHandler;
+import spoilerplate.cleancode.minesweeper.tobe.minesweeper.io.ConsoleOutputHandler;
+import spoilerplate.cleancode.minesweeper.tobe.minesweeper.Minesweeper;
 
 public class GameApplication {
 
