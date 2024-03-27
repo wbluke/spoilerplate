@@ -5,6 +5,7 @@ import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPositions;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.RelativePosition;
 import spoilerplate.cleancode.minesweeper.tobe.gamelevel.GameLevel;
+import spoilerplate.cleancode.minesweeper.tobe.io.GameStatus;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class GameBoard {
 
     private final Cell[][] board;
     private final int landMineCount;
+    private GameStatus gameStatus;
 
     public GameBoard(GameLevel gameLevel) {
         int rowSize = gameLevel.getRowSize();
@@ -19,6 +21,7 @@ public class GameBoard {
         board = new Cell[rowSize][colSize];
 
         landMineCount = gameLevel.getLandMineCount();
+        gameStatus = GameStatus.IN_PROGRESS;
     }
 
     public int getRowSize() {
@@ -37,9 +40,33 @@ public class GameBoard {
     public void flagAt(CellPosition cellPosition) {
         Cell cell = findCell(cellPosition);
         cell.flag();
+
+        checkIfGameIsOver();
     }
 
     public void openAt(CellPosition cellPosition) {
+        if (isLandMineAt(cellPosition)) {
+            openLandMineCell(cellPosition);
+            return;
+        }
+
+        openSurroundedCells(cellPosition);
+        checkIfGameIsOver();
+    }
+
+    private void checkIfGameIsOver() {
+        if (isAllCellChecked()) {
+            gameStatus = GameStatus.WIN;
+        }
+    }
+
+    public void openLandMineCell(CellPosition cellPosition) {
+        openOneCell(cellPosition);
+
+        gameStatus = GameStatus.LOSE;
+    }
+
+    private void openOneCell(CellPosition cellPosition) {
         Cell cell = findCell(cellPosition);
         cell.open();
     }
@@ -55,6 +82,7 @@ public class GameBoard {
     }
 
     public void initializeGame() {
+        gameStatus = GameStatus.IN_PROGRESS;
         CellPositions cellPositions = CellPositions.from(board);
 
         initializeEmptyCells(cellPositions);
@@ -107,7 +135,7 @@ public class GameBoard {
             return;
         }
 
-        openAt(cellPosition);
+        openOneCell(cellPosition);
 
         if (hasLandMineCountAt(cellPosition)) {
             return;
@@ -141,6 +169,18 @@ public class GameBoard {
 
     private Cell findCell(CellPosition cellPosition) {
         return board[cellPosition.getRowIndex()][cellPosition.getColIndex()];
+    }
+
+    public boolean isInProgress() {
+        return this.gameStatus == GameStatus.IN_PROGRESS;
+    }
+
+    public boolean isWinning() {
+        return this.gameStatus == GameStatus.WIN;
+    }
+
+    public boolean isLosing() {
+        return this.gameStatus == GameStatus.LOSE;
     }
 
 }

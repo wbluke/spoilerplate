@@ -80,7 +80,7 @@ public class MinesweeperGame {
             System.out.println("선택할 좌표를 입력하세요. (예: a1)");
             String input = scanner.nextLine();
             System.out.println(input + " 셀을 선택하셨습니다.");
-            System.out.println(input + " 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
+            System.out.println("선택한 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
             String input2 = scanner.nextLine();
             char c = input.charAt(0);
             char r = input.charAt(1);
@@ -123,7 +123,6 @@ public class MinesweeperGame {
             int row = Character.getNumericValue(r) - 1;
             if (input2.equals("2")) {
                 board[row][col] = "⚑";
-                System.out.println(input + " 셀에 깃발을 꽂았습니다.");
                 boolean open = true;
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 10; j++) {

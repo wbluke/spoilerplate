@@ -70,13 +70,8 @@ public class ConsoleOutputHandler implements MinesweeperOutputHandler {
     }
 
     @Override
-    public void showCommentForUserAction(String cellInput) {
-        System.out.println(cellInput + " 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
-    }
-
-    @Override
-    public void showCommentForFlagAction(String cellInput) {
-        System.out.println(cellInput + " 셀에 깃발을 꽂았습니다.");
+    public void showCommentForUserAction() {
+        System.out.println("선택한 셀에 대한 행위를 선택하세요. (1: 오픈, 2: 깃발 꽂기)");
     }
 
     @Override
