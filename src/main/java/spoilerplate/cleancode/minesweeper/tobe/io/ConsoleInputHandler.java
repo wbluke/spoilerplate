@@ -28,8 +28,8 @@ public class ConsoleInputHandler implements MinesweeperInputHandler {
     public CellPosition getCellPositionFromUser() {
         String userInput = scanner.nextLine();
 
-        int selectedColIndex = boardIndexConverter.convertColIndex(userInput);
         int selectedRowIndex = boardIndexConverter.convertRowIndex(userInput);
+        int selectedColIndex = boardIndexConverter.convertColIndex(userInput);
         return CellPosition.of(selectedRowIndex, selectedColIndex);
     }
 
