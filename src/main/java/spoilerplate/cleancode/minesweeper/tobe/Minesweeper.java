@@ -3,6 +3,7 @@ package spoilerplate.cleancode.minesweeper.tobe;
 import spoilerplate.cleancode.minesweeper.tobe.board.GameBoard;
 import spoilerplate.cleancode.minesweeper.tobe.board.position.CellPosition;
 import spoilerplate.cleancode.minesweeper.tobe.config.GameConfig;
+import spoilerplate.cleancode.minesweeper.tobe.exception.GameException;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameInitializable;
 import spoilerplate.cleancode.minesweeper.tobe.game.GameRunnable;
 import spoilerplate.cleancode.minesweeper.tobe.io.MinesweeperInputHandler;
@@ -38,7 +39,7 @@ public class Minesweeper implements GameInitializable, GameRunnable {
                 UserAction userAction = getUserActionInputFromUser();
 
                 actOnCell(selectedCellPosition, userAction);
-            } catch (IllegalArgumentException e) {
+            } catch (GameException e) {
                 outputHandler.showExceptionMessage(e);
             }
         }
@@ -64,7 +65,7 @@ public class Minesweeper implements GameInitializable, GameRunnable {
             return;
         }
 
-        throw new IllegalArgumentException("잘못된 번호를 선택하셨습니다.");
+        throw new GameException("잘못된 번호를 선택하셨습니다.");
     }
 
     private boolean doesUserChooseToPlantFlag(UserAction userAction) {
@@ -86,7 +87,7 @@ public class Minesweeper implements GameInitializable, GameRunnable {
 
         CellPosition cellPosition = inputHandler.getCellPositionFromUser();
         if (gameBoard.isInvalidCellPosition(cellPosition)) {
-            throw new IllegalArgumentException("잘못된 번호를 선택하셨습니다.");
+            throw new GameException("잘못된 번호를 선택하셨습니다.");
         }
 
         return cellPosition;
