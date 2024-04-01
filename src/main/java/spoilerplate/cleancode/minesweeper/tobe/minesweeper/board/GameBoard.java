@@ -7,6 +7,7 @@ import spoilerplate.cleancode.minesweeper.tobe.minesweeper.board.position.Relati
 import spoilerplate.cleancode.minesweeper.tobe.minesweeper.gamelevel.GameLevel;
 
 import java.util.List;
+import java.util.Stack;
 
 public class GameBoard {
 
@@ -48,7 +49,8 @@ public class GameBoard {
             return;
         }
 
-        openSurroundedCells(cellPosition);
+//        openSurroundedCells(cellPosition);
+        openSurroundedCells2(cellPosition);
         checkIfGameIsOver();
     }
 
@@ -185,6 +187,37 @@ public class GameBoard {
 
     private Cell findCell(CellPosition cellPosition) {
         return board[cellPosition.getRowIndex()][cellPosition.getColIndex()];
+    }
+
+    // ============================================================
+    private void openSurroundedCells2(CellPosition cellPosition) {
+        Stack<CellPosition> stack = new Stack<>();
+        stack.push(cellPosition);
+
+        while (!stack.isEmpty()) {
+            openAndPushCellAt(stack);
+        }
+    }
+
+    private void openAndPushCellAt(Stack<CellPosition> stack) {
+        CellPosition current = stack.pop();
+        if (isOpened(current)) {
+            return;
+        }
+        if (isLandMineAt(current)) {
+            return;
+        }
+
+        openOneCell(current);
+
+        if (hasLandMineCountAt(current)) {
+            return;
+        }
+
+        List<CellPosition> surroundedPositions = calculateSurroundedPositions(current);
+        for (CellPosition surroundedPosition : surroundedPositions) {
+            stack.push(surroundedPosition);
+        }
     }
 
 }
