@@ -1,7 +1,7 @@
-package spoilerplate.cleancode.studycafe.asis.io;
+package spoilerplate.cleancode.studycafe.tobe.io;
 
-import spoilerplate.cleancode.studycafe.asis.model.StudyCafeLockerOption;
-import spoilerplate.cleancode.studycafe.asis.model.StudyCafePass;
+import spoilerplate.cleancode.studycafe.tobe.model.StudyCafeLockerOption;
+import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePass;
 
 import java.util.List;
 
