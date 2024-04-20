@@ -70,8 +70,6 @@ public class StudyCafePassMachine {
                 } else {
                     outputHandler.showOrderSummary(selectedPass, null);
                 }
-            } else {
-                throw new AppException("알 수 없는 이용권을 선택하셨습니다.");
             }
         } catch (AppException e) {
             System.out.println(e.getMessage());
