@@ -8,7 +8,9 @@ import spoilerplate.cleancode.studycafe.tobe.model.StudyCafeLockerOption;
 import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePass;
 import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePassType;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 public class StudyCafePassMachine {
 
@@ -31,9 +33,11 @@ public class StudyCafePassMachine {
             outputHandler.showPassListForSelection(passCandidates);
             StudyCafePass selectedPass = inputHandler.getSelectPass(passCandidates);
 
-            StudyCafeLockerOption lockerOption = getLockerOption(selectedPass);
-
-            outputHandler.showOrderSummary(selectedPass, lockerOption);
+            Optional<StudyCafeLockerOption> optionalLockerOption = getLockerOption(selectedPass);
+            optionalLockerOption.ifPresentOrElse(
+                lockerOption -> outputHandler.showOrderSummary(selectedPass, lockerOption),
+                () -> outputHandler.showOrderSummary(selectedPass)
+            );
         } catch (AppException e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
@@ -41,9 +45,9 @@ public class StudyCafePassMachine {
         }
     }
 
-    private StudyCafeLockerOption getLockerOption(StudyCafePass selectedPass) {
+    private Optional<StudyCafeLockerOption> getLockerOption(StudyCafePass selectedPass) {
         if (selectedPass.getPassType() != StudyCafePassType.FIXED) {
-            return null;
+            return Optional.empty();
         }
 
         List<StudyCafeLockerOption> lockerOptions = studyCafeFileHandler.readLockerOptions();
@@ -60,11 +64,11 @@ public class StudyCafePassMachine {
             boolean isLockerSelected = inputHandler.getLockerSelection();
 
             if (isLockerSelected) {
-                return lockerOption;
+                return Optional.of(lockerOption);
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 
 }

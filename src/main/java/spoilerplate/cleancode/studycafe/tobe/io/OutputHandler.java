@@ -42,6 +42,10 @@ public class OutputHandler {
         System.out.println("1. 예 | 2. 아니오");
     }
 
+    public void showOrderSummary(StudyCafePass selectedPass) {
+        showOrderSummary(selectedPass, null);
+    }
+
     public void showOrderSummary(StudyCafePass selectedPass, StudyCafeLockerOption lockerOption) {
         System.out.println();
         System.out.println("이용 내역");
