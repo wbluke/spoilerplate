@@ -31,7 +31,7 @@ public class StudyCafePassMachine {
                     .toList();
                 outputHandler.showPassListForSelection(hourlyPasses);
                 StudyCafePass selectedPass = inputHandler.getSelectPass(hourlyPasses);
-                outputHandler.showOrderSummary(selectedPass, null);
+                outputHandler.showPassOrderSummary(selectedPass, null);
             } else if (studyCafePassType == StudyCafePassType.WEEKLY) {
                 StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
                 List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
@@ -40,7 +40,7 @@ public class StudyCafePassMachine {
                     .toList();
                 outputHandler.showPassListForSelection(weeklyPasses);
                 StudyCafePass selectedPass = inputHandler.getSelectPass(weeklyPasses);
-                outputHandler.showOrderSummary(selectedPass, null);
+                outputHandler.showPassOrderSummary(selectedPass, null);
             } else if (studyCafePassType == StudyCafePassType.FIXED) {
                 StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();
                 List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
@@ -66,9 +66,9 @@ public class StudyCafePassMachine {
                 }
 
                 if (lockerSelection) {
-                    outputHandler.showOrderSummary(selectedPass, lockerPass);
+                    outputHandler.showPassOrderSummary(selectedPass, lockerPass);
                 } else {
-                    outputHandler.showOrderSummary(selectedPass, null);
+                    outputHandler.showPassOrderSummary(selectedPass, null);
                 }
             }
         } catch (AppException e) {

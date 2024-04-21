@@ -24,8 +24,8 @@ public class StudyCafePassMachine {
 
             Optional<StudyCafeLockerPass> optionalLockerPass = getLockerPass(selectedPass);
             optionalLockerPass.ifPresentOrElse(
-                lockerPass -> ioHandler.showOrderSummary(selectedPass, lockerPass),
-                () -> ioHandler.showOrderSummary(selectedPass)
+                lockerPass -> ioHandler.showPassOrderSummary(selectedPass, lockerPass),
+                () -> ioHandler.showPassOrderSummary(selectedPass)
             );
         } catch (AppException e) {
             ioHandler.showSimpleMessage(e.getMessage());

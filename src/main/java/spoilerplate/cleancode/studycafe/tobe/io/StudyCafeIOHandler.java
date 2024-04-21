@@ -29,12 +29,12 @@ public class StudyCafeIOHandler {
         return inputHandler.getSelectPass(passCandidates);
     }
 
-    public void showOrderSummary(StudyCafePass selectedPass) {
-        outputHandler.showOrderSummary(selectedPass);
+    public void showPassOrderSummary(StudyCafePass selectedPass) {
+        outputHandler.showPassOrderSummary(selectedPass);
     }
 
-    public void showOrderSummary(StudyCafePass selectedPass, StudyCafeLockerPass lockerPass) {
-        outputHandler.showOrderSummary(selectedPass, lockerPass);
+    public void showPassOrderSummary(StudyCafePass selectedPass, StudyCafeLockerPass lockerPass) {
+        outputHandler.showPassOrderSummary(selectedPass, lockerPass);
     }
 
     public void showSimpleMessage(String message) {
