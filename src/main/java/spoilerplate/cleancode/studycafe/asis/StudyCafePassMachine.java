@@ -72,9 +72,9 @@ public class StudyCafePassMachine {
                 }
             }
         } catch (AppException e) {
-            System.out.println(e.getMessage());
+            outputHandler.showSimpleMessage(e.getMessage());
         } catch (Exception e) {
-            System.out.println("알 수 없는 오류가 발생했습니다.");
+            outputHandler.showSimpleMessage("알 수 없는 오류가 발생했습니다.");
         }
     }
 

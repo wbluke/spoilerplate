@@ -65,4 +65,8 @@ public class OutputHandler {
         System.out.println();
     }
 
+    public void showSimpleMessage(String message) {
+        System.out.println(message);
+    }
+
 }
