@@ -1,6 +1,6 @@
 package spoilerplate.cleancode.studycafe.tobe.io;
 
-import spoilerplate.cleancode.studycafe.tobe.model.StudyCafeLockerOption;
+import spoilerplate.cleancode.studycafe.tobe.model.StudyCafeLockerPass;
 import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePass;
 import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePassType;
 
@@ -33,21 +33,21 @@ public class StudyCafeFileHandler {
         }
     }
 
-    public List<StudyCafeLockerOption> readLockerOptions() {
+    public List<StudyCafeLockerPass> readLockerPasses() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/locker.csv"));
-            List<StudyCafeLockerOption> lockerOptions = new ArrayList<>();
+            List<StudyCafeLockerPass> lockerPasses = new ArrayList<>();
             for (String line : lines) {
                 String[] values = line.split(",");
                 StudyCafePassType studyCafePassType = StudyCafePassType.valueOf(values[0]);
                 int duration = Integer.parseInt(values[1]);
                 int price = Integer.parseInt(values[2]);
 
-                StudyCafeLockerOption lockerOption = StudyCafeLockerOption.of(studyCafePassType, duration, price);
-                lockerOptions.add(lockerOption);
+                StudyCafeLockerPass lockerPass = StudyCafeLockerPass.of(studyCafePassType, duration, price);
+                lockerPasses.add(lockerPass);
             }
 
-            return lockerOptions;
+            return lockerPasses;
         } catch (IOException e) {
             throw new RuntimeException("파일을 읽는데 실패했습니다.", e);
         }

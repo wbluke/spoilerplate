@@ -4,7 +4,7 @@ import spoilerplate.cleancode.studycafe.asis.exception.AppException;
 import spoilerplate.cleancode.studycafe.asis.io.InputHandler;
 import spoilerplate.cleancode.studycafe.asis.io.OutputHandler;
 import spoilerplate.cleancode.studycafe.asis.io.StudyCafeFileHandler;
-import spoilerplate.cleancode.studycafe.asis.model.StudyCafeLockerOption;
+import spoilerplate.cleancode.studycafe.asis.model.StudyCafeLockerPass;
 import spoilerplate.cleancode.studycafe.asis.model.StudyCafePass;
 import spoilerplate.cleancode.studycafe.asis.model.StudyCafePassType;
 
@@ -50,8 +50,8 @@ public class StudyCafePassMachine {
                 outputHandler.showPassListForSelection(fixedPasses);
                 StudyCafePass selectedPass = inputHandler.getSelectPass(fixedPasses);
 
-                List<StudyCafeLockerOption> lockerOptions = studyCafeFileHandler.readLockerOptions();
-                StudyCafeLockerOption lockerOption = lockerOptions.stream()
+                List<StudyCafeLockerPass> lockerPasses = studyCafeFileHandler.readLockerPasses();
+                StudyCafeLockerPass lockerPass = lockerPasses.stream()
                     .filter(option ->
                         option.getPassType() == selectedPass.getPassType()
                             && option.getDuration() == selectedPass.getDuration()
@@ -60,13 +60,13 @@ public class StudyCafePassMachine {
                     .orElse(null);
 
                 boolean lockerSelection = false;
-                if (lockerOption != null) {
-                    outputHandler.askLockerOption(lockerOption);
+                if (lockerPass != null) {
+                    outputHandler.askLockerPass(lockerPass);
                     lockerSelection = inputHandler.getLockerSelection();
                 }
 
                 if (lockerSelection) {
-                    outputHandler.showOrderSummary(selectedPass, lockerOption);
+                    outputHandler.showOrderSummary(selectedPass, lockerPass);
                 } else {
                     outputHandler.showOrderSummary(selectedPass, null);
                 }

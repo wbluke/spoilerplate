@@ -1,19 +1,19 @@
 package spoilerplate.cleancode.studycafe.asis.model;
 
-public class StudyCafeLockerOption {
+public class StudyCafeLockerPass {
 
     private final StudyCafePassType passType;
     private final int duration;
     private final int price;
 
-    private StudyCafeLockerOption(StudyCafePassType passType, int duration, int price) {
+    private StudyCafeLockerPass(StudyCafePassType passType, int duration, int price) {
         this.passType = passType;
         this.duration = duration;
         this.price = price;
     }
 
-    public static StudyCafeLockerOption of(StudyCafePassType passType, int duration, int price) {
-        return new StudyCafeLockerOption(passType, duration, price);
+    public static StudyCafeLockerPass of(StudyCafePassType passType, int duration, int price) {
+        return new StudyCafeLockerPass(passType, duration, price);
     }
 
     public StudyCafePassType getPassType() {

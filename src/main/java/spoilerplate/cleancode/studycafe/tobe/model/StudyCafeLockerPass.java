@@ -1,27 +1,27 @@
 package spoilerplate.cleancode.studycafe.tobe.model;
 
-public class StudyCafeLockerOption {
+public class StudyCafeLockerPass {
 
     private final StudyCafePassType passType;
     private final int duration;
     private final int price;
 
-    private StudyCafeLockerOption(StudyCafePassType passType, int duration, int price) {
+    private StudyCafeLockerPass(StudyCafePassType passType, int duration, int price) {
         this.passType = passType;
         this.duration = duration;
         this.price = price;
     }
 
-    public static StudyCafeLockerOption of(StudyCafePassType passType, int duration, int price) {
-        return new StudyCafeLockerOption(passType, duration, price);
+    public static StudyCafeLockerPass of(StudyCafePassType passType, int duration, int price) {
+        return new StudyCafeLockerPass(passType, duration, price);
     }
 
-    public StudyCafePassType getPassType() {
-        return passType;
+    public boolean isSamePassType(StudyCafePassType passType) {
+        return this.passType == passType;
     }
 
-    public int getDuration() {
-        return duration;
+    public boolean isSameDuration(int duration) {
+        return this.duration == duration;
     }
 
     public int getPrice() {
