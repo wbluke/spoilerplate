@@ -37,11 +37,16 @@ public class StudyCafePassMachine {
     private StudyCafePass selectPass() {
         StudyCafePassType studyCafePassType = ioHandler.askPassTypeSelecting();
 
-        List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
-        List<StudyCafePass> passCandidates = studyCafePasses.stream()
+        List<StudyCafePass> passCandidates = findPassCandidatesBy(studyCafePassType);
+        return ioHandler.askPassSelecting(passCandidates);
+    }
+
+    private List<StudyCafePass> findPassCandidatesBy(StudyCafePassType studyCafePassType) {
+        List<StudyCafePass> allPasses = studyCafeFileHandler.readStudyCafePasses();
+
+        return allPasses.stream()
             .filter(studyCafePass -> studyCafePass.isSamePassType(studyCafePassType))
             .toList();
-        return ioHandler.askPassSelecting(passCandidates);
     }
 
     private Optional<StudyCafeLockerPass> getLockerPass(StudyCafePass selectedPass) {
@@ -49,11 +54,7 @@ public class StudyCafePassMachine {
             return Optional.empty();
         }
 
-        List<StudyCafeLockerPass> lockerPasses = studyCafeFileHandler.readLockerPasses();
-        StudyCafeLockerPass lockerPassCandidate = lockerPasses.stream()
-            .filter(selectedPass::isSameDurationType)
-            .findFirst()
-            .orElse(null);
+        StudyCafeLockerPass lockerPassCandidate = findLockerPassCandidateBy(selectedPass);
 
         if (lockerPassCandidate != null) {
             boolean isLockerSelected = ioHandler.askLockerPass(lockerPassCandidate);
@@ -63,6 +64,15 @@ public class StudyCafePassMachine {
         }
 
         return Optional.empty();
+    }
+
+    private StudyCafeLockerPass findLockerPassCandidateBy(StudyCafePass selectedPass) {
+        List<StudyCafeLockerPass> allLockerPasses = studyCafeFileHandler.readLockerPasses();
+
+        return allLockerPasses.stream()
+            .filter(selectedPass::isSameDurationType)
+            .findFirst()
+            .orElse(null);
     }
 
 }
