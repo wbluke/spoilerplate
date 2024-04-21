@@ -20,8 +20,8 @@ public class StudyCafePassMachine {
             outputHandler.showWelcomeMessage();
             outputHandler.showAnnouncement();
 
-            outputHandler.askPassSelection();
-            StudyCafePassType studyCafePassType = inputHandler.getPassSelectingUserAction();
+            outputHandler.askPassTypeSelection();
+            StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
 
             if (studyCafePassType == StudyCafePassType.HOURLY) {
                 StudyCafeFileHandler studyCafeFileHandler = new StudyCafeFileHandler();

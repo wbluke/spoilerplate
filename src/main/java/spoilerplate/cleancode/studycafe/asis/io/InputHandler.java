@@ -11,7 +11,7 @@ public class InputHandler {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public StudyCafePassType getPassSelectingUserAction() {
+    public StudyCafePassType getPassTypeSelectingUserAction() {
         String userInput = SCANNER.nextLine();
 
         if ("1".equals(userInput)) {

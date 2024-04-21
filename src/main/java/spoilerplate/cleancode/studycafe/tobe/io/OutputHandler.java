@@ -17,7 +17,7 @@ public class OutputHandler {
         System.out.println();
     }
 
-    public void askPassSelection() {
+    public void askPassTypeSelection() {
         System.out.println("사용하실 이용권을 선택해 주세요.");
         System.out.println("1. 시간 이용권(자유석) | 2. 주단위 이용권(자유석) | 3. 1인 고정석");
     }
