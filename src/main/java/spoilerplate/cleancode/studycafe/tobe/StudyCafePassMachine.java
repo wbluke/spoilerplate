@@ -20,13 +20,7 @@ public class StudyCafePassMachine {
             ioHandler.showWelcomeMessage();
             ioHandler.showAnnouncement();
 
-            StudyCafePassType studyCafePassType = ioHandler.askPassTypeSelecting();
-
-            List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
-            List<StudyCafePass> passCandidates = studyCafePasses.stream()
-                .filter(studyCafePass -> studyCafePass.isSamePassType(studyCafePassType))
-                .toList();
-            StudyCafePass selectedPass = ioHandler.askPassSelecting(passCandidates);
+            StudyCafePass selectedPass = selectPass();
 
             Optional<StudyCafeLockerPass> optionalLockerPass = getLockerPass(selectedPass);
             optionalLockerPass.ifPresentOrElse(
@@ -38,6 +32,16 @@ public class StudyCafePassMachine {
         } catch (Exception e) {
             ioHandler.showSimpleMessage("알 수 없는 오류가 발생했습니다.");
         }
+    }
+
+    private StudyCafePass selectPass() {
+        StudyCafePassType studyCafePassType = ioHandler.askPassTypeSelecting();
+
+        List<StudyCafePass> studyCafePasses = studyCafeFileHandler.readStudyCafePasses();
+        List<StudyCafePass> passCandidates = studyCafePasses.stream()
+            .filter(studyCafePass -> studyCafePass.isSamePassType(studyCafePassType))
+            .toList();
+        return ioHandler.askPassSelecting(passCandidates);
     }
 
     private Optional<StudyCafeLockerPass> getLockerPass(StudyCafePass selectedPass) {
