@@ -13,7 +13,7 @@ public class StudyCafeFileHandler {
     public StudyCafePasses readStudyCafePasses() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/pass-list.csv"));
-            List<StudyCafePass> passes = new ArrayList<>();
+            List<StudyCafeSeatPass> passes = new ArrayList<>();
             for (String line : lines) {
                 String[] values = line.split(",");
                 StudyCafePassType studyCafePassType = StudyCafePassType.valueOf(values[0]);
@@ -21,8 +21,8 @@ public class StudyCafeFileHandler {
                 int price = Integer.parseInt(values[2]);
                 double discountRate = Double.parseDouble(values[3]);
 
-                StudyCafePass studyCafePass = StudyCafePass.of(studyCafePassType, duration, price, discountRate);
-                passes.add(studyCafePass);
+                StudyCafeSeatPass studyCafeSeatPass = StudyCafeSeatPass.of(studyCafePassType, duration, price, discountRate);
+                passes.add(studyCafeSeatPass);
             }
 
             return StudyCafePasses.of(passes);

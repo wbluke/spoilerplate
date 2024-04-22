@@ -1,7 +1,7 @@
 package spoilerplate.cleancode.studycafe.tobe.io;
 
 import spoilerplate.cleancode.studycafe.tobe.exception.AppException;
-import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePass;
+import spoilerplate.cleancode.studycafe.tobe.model.StudyCafeSeatPass;
 import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePassType;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class InputHandler {
         throw new AppException("잘못된 입력입니다.");
     }
 
-    public StudyCafePass getSelectPass(List<StudyCafePass> passes) {
+    public StudyCafeSeatPass getSelectPass(List<StudyCafeSeatPass> passes) {
         String userInput = SCANNER.nextLine();
         int selectedIndex = Integer.parseInt(userInput) - 1;
         return passes.get(selectedIndex);

@@ -18,12 +18,12 @@ public class StudyCafePassMachine {
             ioHandler.showWelcomeMessage();
             ioHandler.showAnnouncement();
 
-            StudyCafePass selectedPass = selectPass();
+            StudyCafeSeatPass selectedSeatPass = selectSeatPass();
 
-            Optional<StudyCafeLockerPass> optionalLockerPass = selectLockerPass(selectedPass);
+            Optional<StudyCafeLockerPass> optionalLockerPass = selectLockerPass(selectedSeatPass);
             optionalLockerPass.ifPresentOrElse(
-                lockerPass -> ioHandler.showPassOrderSummary(selectedPass, lockerPass),
-                () -> ioHandler.showPassOrderSummary(selectedPass)
+                lockerPass -> ioHandler.showPassOrderSummary(selectedSeatPass, lockerPass),
+                () -> ioHandler.showPassOrderSummary(selectedSeatPass)
             );
         } catch (AppException e) {
             ioHandler.showSimpleMessage(e.getMessage());
@@ -32,19 +32,19 @@ public class StudyCafePassMachine {
         }
     }
 
-    private StudyCafePass selectPass() {
+    private StudyCafeSeatPass selectSeatPass() {
         StudyCafePassType studyCafePassType = ioHandler.askPassTypeSelecting();
 
-        List<StudyCafePass> passCandidates = findPassCandidatesBy(studyCafePassType);
-        return ioHandler.askPassSelecting(passCandidates);
+        List<StudyCafeSeatPass> seatPassCandidates = findPassCandidatesBy(studyCafePassType);
+        return ioHandler.askPassSelecting(seatPassCandidates);
     }
 
-    private List<StudyCafePass> findPassCandidatesBy(StudyCafePassType studyCafePassType) {
+    private List<StudyCafeSeatPass> findPassCandidatesBy(StudyCafePassType studyCafePassType) {
         StudyCafePasses allPasses = studyCafeFileHandler.readStudyCafePasses();
         return allPasses.findPassBy(studyCafePassType);
     }
 
-    private Optional<StudyCafeLockerPass> selectLockerPass(StudyCafePass selectedPass) {
+    private Optional<StudyCafeLockerPass> selectLockerPass(StudyCafeSeatPass selectedPass) {
         if (selectedPass.cannotUseLocker()) {
             return Optional.empty();
         }
@@ -62,7 +62,7 @@ public class StudyCafePassMachine {
         return Optional.empty();
     }
 
-    private Optional<StudyCafeLockerPass> findLockerPassCandidateBy(StudyCafePass selectedPass) {
+    private Optional<StudyCafeLockerPass> findLockerPassCandidateBy(StudyCafeSeatPass selectedPass) {
         StudyCafeLockerPasses allLockerPasses = studyCafeFileHandler.readLockerPasses();
         return allLockerPasses.findLockerPassBy(selectedPass);
     }

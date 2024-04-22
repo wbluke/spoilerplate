@@ -4,17 +4,17 @@ import java.util.List;
 
 public class StudyCafePasses {
 
-    private final List<StudyCafePass> passes;
+    private final List<StudyCafeSeatPass> passes;
 
-    public StudyCafePasses(List<StudyCafePass> passes) {
+    public StudyCafePasses(List<StudyCafeSeatPass> passes) {
         this.passes = passes;
     }
 
-    public static StudyCafePasses of(List<StudyCafePass> passes) {
+    public static StudyCafePasses of(List<StudyCafeSeatPass> passes) {
         return new StudyCafePasses(passes);
     }
 
-    public List<StudyCafePass> findPassBy(StudyCafePassType studyCafePassType) {
+    public List<StudyCafeSeatPass> findPassBy(StudyCafePassType studyCafePassType) {
         return passes.stream()
             .filter(studyCafePass -> studyCafePass.isSamePassType(studyCafePassType))
             .toList();
