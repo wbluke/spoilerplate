@@ -3,7 +3,12 @@ package spoilerplate.cleancode.studycafe.tobe;
 import spoilerplate.cleancode.studycafe.tobe.exception.AppException;
 import spoilerplate.cleancode.studycafe.tobe.io.StudyCafeFileHandler;
 import spoilerplate.cleancode.studycafe.tobe.io.StudyCafeIOHandler;
-import spoilerplate.cleancode.studycafe.tobe.model.*;
+import spoilerplate.cleancode.studycafe.tobe.model.order.StudyCafePassOrder;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.StudyCafePassType;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.StudyCafeSeatPass;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.StudyCafeSeatPasses;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPass;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPasses;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +26,12 @@ public class StudyCafePassMachine {
             StudyCafeSeatPass selectedSeatPass = selectSeatPass();
 
             Optional<StudyCafeLockerPass> optionalLockerPass = selectLockerPass(selectedSeatPass);
-            optionalLockerPass.ifPresentOrElse(
-                lockerPass -> ioHandler.showPassOrderSummary(selectedSeatPass, lockerPass),
-                () -> ioHandler.showPassOrderSummary(selectedSeatPass)
+            StudyCafePassOrder passOrder = StudyCafePassOrder.of(
+                selectedSeatPass,
+                optionalLockerPass.orElse(null)
             );
+
+            ioHandler.showPassOrderSummary(passOrder);
         } catch (AppException e) {
             ioHandler.showSimpleMessage(e.getMessage());
         } catch (Exception e) {
@@ -40,7 +47,7 @@ public class StudyCafePassMachine {
     }
 
     private List<StudyCafeSeatPass> findPassCandidatesBy(StudyCafePassType studyCafePassType) {
-        StudyCafePasses allPasses = studyCafeFileHandler.readStudyCafePasses();
+        StudyCafeSeatPasses allPasses = studyCafeFileHandler.readStudyCafePasses();
         return allPasses.findPassBy(studyCafePassType);
     }
 

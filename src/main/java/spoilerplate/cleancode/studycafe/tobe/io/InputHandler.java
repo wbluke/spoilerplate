@@ -1,8 +1,8 @@
 package spoilerplate.cleancode.studycafe.tobe.io;
 
 import spoilerplate.cleancode.studycafe.tobe.exception.AppException;
-import spoilerplate.cleancode.studycafe.tobe.model.StudyCafeSeatPass;
-import spoilerplate.cleancode.studycafe.tobe.model.StudyCafePassType;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.StudyCafeSeatPass;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.StudyCafePassType;
 
 import java.util.List;
 import java.util.Scanner;

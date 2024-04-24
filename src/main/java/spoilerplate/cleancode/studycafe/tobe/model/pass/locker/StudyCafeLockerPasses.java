@@ -1,4 +1,6 @@
-package spoilerplate.cleancode.studycafe.tobe.model;
+package spoilerplate.cleancode.studycafe.tobe.model.pass.locker;
+
+import spoilerplate.cleancode.studycafe.tobe.model.pass.StudyCafeSeatPass;
 
 import java.util.List;
 import java.util.Optional;

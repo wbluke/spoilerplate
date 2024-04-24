@@ -1,4 +1,6 @@
-package spoilerplate.cleancode.studycafe.tobe.model;
+package spoilerplate.cleancode.studycafe.tobe.model.pass;
+
+import spoilerplate.cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPass;
 
 public class StudyCafeSeatPass implements StudyCafePass {
 
@@ -43,8 +45,8 @@ public class StudyCafeSeatPass implements StudyCafePass {
         return price;
     }
 
-    public double getDiscountRate() {
-        return discountRate;
+    public int getDiscountPrice() {
+        return (int) (this.getPrice() * discountRate);
     }
 
 }

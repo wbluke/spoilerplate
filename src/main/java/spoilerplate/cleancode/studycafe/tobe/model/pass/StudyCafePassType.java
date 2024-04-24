@@ -1,4 +1,4 @@
-package spoilerplate.cleancode.studycafe.tobe.model;
+package spoilerplate.cleancode.studycafe.tobe.model.pass;
 
 import java.util.Set;
 

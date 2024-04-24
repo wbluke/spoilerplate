@@ -1,6 +1,8 @@
 package spoilerplate.cleancode.studycafe.tobe.io;
 
-import spoilerplate.cleancode.studycafe.tobe.model.*;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.*;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPass;
+import spoilerplate.cleancode.studycafe.tobe.model.pass.locker.StudyCafeLockerPasses;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class StudyCafeFileHandler {
 
-    public StudyCafePasses readStudyCafePasses() {
+    public StudyCafeSeatPasses readStudyCafePasses() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/pass-list.csv"));
             List<StudyCafeSeatPass> passes = new ArrayList<>();
@@ -25,7 +27,7 @@ public class StudyCafeFileHandler {
                 passes.add(studyCafeSeatPass);
             }
 
-            return StudyCafePasses.of(passes);
+            return StudyCafeSeatPasses.of(passes);
         } catch (IOException e) {
             throw new RuntimeException("파일을 읽는데 실패했습니다.", e);
         }
