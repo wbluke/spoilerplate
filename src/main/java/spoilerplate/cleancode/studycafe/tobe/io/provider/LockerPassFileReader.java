@@ -13,10 +13,12 @@ import java.util.List;
 
 public class LockerPassFileReader implements LockerPassProvider {
 
+    private static final String LOCKER_PASS_CSV_PATH = "src/main/resources/cleancode/locker.csv";
+
     @Override
     public StudyCafeLockerPasses getLockerPasses() {
         try {
-            List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/locker.csv"));
+            List<String> lines = Files.readAllLines(Paths.get(LOCKER_PASS_CSV_PATH));
             List<StudyCafeLockerPass> lockerPasses = new ArrayList<>();
             for (String line : lines) {
                 String[] values = line.split(",");
